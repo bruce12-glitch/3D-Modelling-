@@ -350,6 +350,13 @@ const TARGET_FPS = 60;
 const FPS_SAMPLE_INTERVAL = 1000;
 const PERFORMANCE_WARN_THRESHOLD = 30;
 const RESIZE_DEBOUNCE_MS = 100;
+
+const ZONE_PALETTES = {
+  core: { primary: "#ffd700", secondary: "#fbbf24", glow: "#fff3cd" },
+  memory: { primary: "#fbbf24", secondary: "#f59e0b", glow: "#fef3c7" },
+  relay: { primary: "#a78bfa", secondary: "#8b5cf6", glow: "#ede9fe" },
+  gateway: { primary: "#fbbf24", secondary: "#f97316", glow: "#fef3c7" },
+} as const;
 const MIN_CANVAS_WIDTH = 1;
 const MIN_CANVAS_HEIGHT = 1;
 const GLOW_TEXTURE_SIZE = 64;
