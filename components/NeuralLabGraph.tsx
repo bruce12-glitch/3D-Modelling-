@@ -990,6 +990,11 @@ const ROTATE_90 = "rotate(90deg)";
 const ROTATE_180 = "rotate(180deg)";
 const ROTATE_270 = "rotate(270deg)";
 const ROTATE_360 = "rotate(360deg)";
+
+const SKEW_X_10 = "skewX(10deg)";
+const SKEW_Y_10 = "skewY(10deg)";
+const SKEW_X_N10 = "skewX(-10deg)";
+const SKEW_Y_N10 = "skewY(-10deg)";
 ;
 ;
 ;
