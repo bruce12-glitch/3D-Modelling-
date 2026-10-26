@@ -1267,6 +1267,13 @@ const FLEX_COL_REVERSE = "column-reverse";
 const FLEX_WRAP = "wrap";
 const FLEX_NOWRAP = "nowrap";
 const FLEX_WRAP_REVERSE = "wrap-reverse";
+
+const JUSTIFY_START = "flex-start";
+const JUSTIFY_CENTER = "center";
+const JUSTIFY_END = "flex-end";
+const JUSTIFY_BETWEEN = "space-between";
+const JUSTIFY_AROUND = "space-around";
+const JUSTIFY_EVENLY = "space-evenly";
 ;
 ;
 ;
