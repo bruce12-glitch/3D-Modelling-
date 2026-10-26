@@ -369,6 +369,8 @@ const NODE_OPACITY = 0.95;
 const NODE_TRANSMISSION = 0.1;
 const NODE_THICKNESS = 0.5;
 const NODE_EMISSIVE_INTENSITY = 0.4;
+const GLOW_OPACITY = 0.35;
+const GLOW_BLENDING = THREE.AdditiveBlending;
 
 ;
 
