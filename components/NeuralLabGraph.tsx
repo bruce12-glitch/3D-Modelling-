@@ -860,6 +860,14 @@ const Z_INDEX_OVERLAY = 50;
 const FONT_MONO = "'JetBrains Mono', 'Fira Code', monospace";
 const FONT_SANS = "'Inter', 'IBM Plex Sans', system-ui, sans-serif";
 const FONT_DISPLAY = "'Space Grotesk', 'Inter', sans-serif";
+
+const FONT_SIZE_XS = "0.5625rem";
+const FONT_SIZE_SM = "0.6875rem";
+const FONT_SIZE_BASE = "0.875rem";
+const FONT_SIZE_LG = "1rem";
+const FONT_SIZE_XL = "1.125rem";
+const FONT_SIZE_2XL = "1.25rem";
+const FONT_SIZE_3XL = "1.5rem";
 ;
 ;
 ;
