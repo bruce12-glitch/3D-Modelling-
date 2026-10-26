@@ -443,6 +443,9 @@ function ViewButton({
   const assetsRef = useRef<LabAssets | null>(null);
   const materialMapRef = useRef<Map<string, NodeVisual>>(new Map());
   const ringRef = useRef<THREE.Sprite | null>(null);
+  const labelsRef = useRef<THREE.Sprite[]>([]);
+
+  const reducedMotionRef = useRef(false);
 
   const graph = useMemo(() => generateLabTopology(), []);
 
@@ -531,7 +534,21 @@ function ViewButton({
     } catch {
       setWebglState("unsupported");
     }
+
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotionRef.current = media.matches;
+    if (media.matches) setAutoOrbit(false);
+    const onChange = (event: MediaQueryListEvent) => {
+      reducedMotionRef.current = event.matches;
+      if (event.matches) setAutoOrbit(false);
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
   }, []);
+
+  useEffect(() => {
+    autoOrbitRef.current = autoOrbit;
+  }, [autoOrbit]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
