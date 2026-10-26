@@ -500,6 +500,23 @@ function ContextLostBanner() {
   );
 }
 
+
+const orbitalRingStyle = {
+  animation: "spin 20s linear infinite",
+};
+
+const orbitalRingReverseStyle = {
+  animation: "spin 15s linear infinite reverse",
+};
+
+const skeletonSweepStyle = {
+  animation: "sweep 2s ease-in-out infinite",
+};
+
+const liveDotStyle = {
+  animation: "pulse 2s ease-in-out infinite",
+};
+
 interface NodeVisual {
   mesh: THREE.Mesh;
   glowMaterial: THREE.SpriteMaterial;
