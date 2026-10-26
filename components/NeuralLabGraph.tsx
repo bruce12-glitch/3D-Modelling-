@@ -1274,6 +1274,12 @@ const JUSTIFY_END = "flex-end";
 const JUSTIFY_BETWEEN = "space-between";
 const JUSTIFY_AROUND = "space-around";
 const JUSTIFY_EVENLY = "space-evenly";
+
+const ALIGN_START = "flex-start";
+const ALIGN_CENTER = "center";
+const ALIGN_END = "flex-end";
+const ALIGN_STRETCH = "stretch";
+const ALIGN_BASELINE = "baseline";
 ;
 ;
 ;
