@@ -1332,6 +1332,16 @@ const BORDER_OUTSET = "outset";
 const BORDER_COLOR_CURRENT = "currentColor";
 const BORDER_COLOR_TRANSPARENT = "transparent";
 const BORDER_COLOR_INHERIT = "inherit";
+
+const OUTLINE_NONE = "none";
+const OUTLINE_AUTO = "auto";
+const OUTLINE_SOLID = "solid";
+const OUTLINE_DASHED = "dashed";
+const OUTLINE_DOTTED = "dotted";
+const OUTLINE_OFFSET_0 = "0";
+const OUTLINE_OFFSET_1 = "1px";
+const OUTLINE_OFFSET_2 = "2px";
+const OUTLINE_OFFSET_4 = "4px";
 ;
 ;
 ;
