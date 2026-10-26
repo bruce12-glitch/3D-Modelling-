@@ -1358,6 +1358,9 @@ const DIVIDE_X = "border-x";
 const DIVIDE_SOLID = "solid";
 const DIVIDE_DASHED = "dashed";
 const DIVIDE_DOTTED = "dotted";
+
+const PLACEHOLDER_COLOR = "currentColor";
+const PLACEHOLDER_OPACITY = 0.5;
 ;
 ;
 ;
