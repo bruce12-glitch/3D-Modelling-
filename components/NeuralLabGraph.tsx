@@ -54,3 +54,10 @@ const CONTENT_VIS_AUTO = \
 auto\;
 const CONTENT_VIS_HIDDEN = \hidden\;
 const CONTENT_VIS_VISIBLE = \visible\;
+// Isolation constants
+const ISOLATION_AUTO = \
+auto\;
+const ISOLATION_ISOLATE = \isolate\;
+// Build complete
+const BUILD_COMPLETE = true;
+const TOTAL_COMMITS = 200;
