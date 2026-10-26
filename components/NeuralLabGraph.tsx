@@ -1240,6 +1240,13 @@ const OBJECT_POS_TOP = "top";
 const OBJECT_POS_BOTTOM = "bottom";
 const OBJECT_POS_LEFT = "left";
 const OBJECT_POS_RIGHT = "right";
+
+const ASPECT_AUTO = "auto";
+const ASPECT_SQUARE = "1 / 1";
+const ASPECT_VIDEO = "16 / 9";
+const ASPECT_PHOTO = "4 / 3";
+const ASPECT_CLASSIC = "3 / 2";
+const ASPECT_CINEMA = "21 / 9";
 ;
 ;
 ;
