@@ -467,6 +467,7 @@ function ViewButton({
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [contextLost, setContextLost] = useState(false);
+  const [fatalError, setFatalError] = useState<string | null>(null);
   const focusIdRef = useRef<string | null>(null);
   const adjacencyRef = useRef(adjacency);
 
