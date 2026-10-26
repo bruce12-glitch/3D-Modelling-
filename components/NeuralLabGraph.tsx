@@ -1288,6 +1288,14 @@ const ALIGN_CONTENT_BETWEEN = "space-between";
 const ALIGN_CONTENT_AROUND = "space-around";
 const ALIGN_CONTENT_EVENLY = "space-evenly";
 const ALIGN_CONTENT_STRETCH = "stretch";
+
+const GAP_0 = "0";
+const GAP_1 = "0.25rem";
+const GAP_2 = "0.5rem";
+const GAP_3 = "0.75rem";
+const GAP_4 = "1rem";
+const GAP_6 = "1.5rem";
+const GAP_8 = "2rem";
 ;
 ;
 ;
