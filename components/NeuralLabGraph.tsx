@@ -1433,6 +1433,9 @@ const WRITING_MODE_VERTICAL_RL = "vertical-rl";
 const WRITING_MODE_VERTICAL_LR = "vertical-lr";
 const WRITING_MODE_SIDEWAYS_RL = "sideways-rl";
 const WRITING_MODE_SIDEWAYS_LR = "sideways-lr";
+
+const DIRECTION_LTR = "ltr";
+const DIRECTION_RTL = "rtl";
 ;
 ;
 ;
