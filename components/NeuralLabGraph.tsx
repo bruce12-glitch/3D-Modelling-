@@ -480,6 +480,26 @@ function FatalOverlay({ message }: { message: string }) {
   );
 }
 
+
+function ContextLostBanner() {
+  return (
+    <div className="absolute left-1/2 top-4 z-50 -translate-x-1/2">
+      <div className="glass-panel flex items-center gap-2 rounded-full border border-amber-300/25 bg-amber-400/10 px-4 py-2">
+        <svg className="h-4 w-4 shrink-0 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <p className="text-xs text-slate-300">GPU context lost. The lattice is frozen.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="rounded-full border border-amber-300/25 bg-amber-400/10 px-3 py-1 font-mono text-[9px] uppercase tracking-wide text-amber-100 hover:bg-amber-400/15 transition"
+        >
+          Reload
+        </button>
+      </div>
+    </div>
+  );
+}
+
 interface NodeVisual {
   mesh: THREE.Mesh;
   glowMaterial: THREE.SpriteMaterial;
