@@ -757,6 +757,12 @@ const RENDER_TARGET_FORMAT = THREE.RGBAFormat;
 const RENDER_TARGET_TYPE = THREE.FloatType;
 const RENDER_TARGET_MIN_FILTER = THREE.LinearFilter;
 const RENDER_TARGET_MAG_FILTER = THREE.LinearFilter;
+
+const CAMERA_FOV = 60;
+const CAMERA_NEAR = 0.1;
+const CAMERA_FAR = 5000;
+const CAMERA_ASPECT_MIN = 0.5;
+const CAMERA_ASPECT_MAX = 2.0;
 ;
 ;
 ;
