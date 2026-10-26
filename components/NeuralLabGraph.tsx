@@ -1149,6 +1149,13 @@ const TOUCH_PAN_UP = "pan-up";
 const TOUCH_PAN_DOWN = "pan-down";
 const TOUCH_PINCH_ZOOM = "pinch-zoom";
 const TOUCH_MANIPULATION = "manipulation";
+
+const POINTER_AUTO = "auto";
+const POINTER_NONE = "none";
+const POINTER_VISIBLE = "visible";
+const POINTER_VISIBLE_FILL = "visibleFill";
+const POINTER_VISIBLE_STROKE = "visibleStroke";
+const POINTER_VISIBLE_PAINTED = "visiblePainted";
 ;
 ;
 ;
