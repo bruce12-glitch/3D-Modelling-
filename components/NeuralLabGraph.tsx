@@ -1066,6 +1066,16 @@ const BG_SIZE_COVER = "cover";
 const BG_SIZE_CONTAIN = "contain";
 const BG_SIZE_FULL = "100% 100%";
 const BG_SIZE_50 = "50% 50%";
+
+const BG_POS_CENTER = "center";
+const BG_POS_TOP = "top";
+const BG_POS_BOTTOM = "bottom";
+const BG_POS_LEFT = "left";
+const BG_POS_RIGHT = "right";
+const BG_POS_TOP_LEFT = "top left";
+const BG_POS_TOP_RIGHT = "top right";
+const BG_POS_BOTTOM_LEFT = "bottom left";
+const BG_POS_BOTTOM_RIGHT = "bottom right";
 ;
 ;
 ;
