@@ -1305,6 +1305,13 @@ const ORDER_2 = "2";
 const ORDER_3 = "3";
 const ORDER_4 = "4";
 const ORDER_5 = "5";
+
+const FLEX_BASIS_AUTO = "auto";
+const FLEX_BASIS_0 = "0";
+const FLEX_BASIS_FULL = "100%";
+const FLEX_BASIS_HALF = "50%";
+const FLEX_BASIS_THIRD = "33.333%";
+const FLEX_BASIS_QUARTER = "25%";
 ;
 ;
 ;
