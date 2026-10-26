@@ -1361,6 +1361,11 @@ const DIVIDE_DOTTED = "dotted";
 
 const PLACEHOLDER_COLOR = "currentColor";
 const PLACEHOLDER_OPACITY = 0.5;
+
+const ACCENT_AUTO = "auto";
+const ACCENT_CYAN = "#22d3ee";
+const ACCENT_AMBER = "#fbbf24";
+const ACCENT_VIOLET = "#a78bfa";
 ;
 ;
 ;
