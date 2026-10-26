@@ -356,12 +356,87 @@ function ViewButton({
     </button>
   );
 }
-
-export function NeuralLabGraph() {
+358: 
+359: function InspectorPanel({ node }: { node: LabNode | null }) {
+360:   if (!node) return null;
+361: 
+362:   const neighbors = Array.from(adjacency.get(node.id) ?? [])
+363:     .map((id) => nodeById.get(id))
+364:     .filter((n): n is LabNode => Boolean(n))
+365:     .sort((a, b) => b.radius - a.radius)
+366:     .slice(0, 5);
+367: 
+368:   const zoneColors: Record<LabNode["zone"], string> = {
+369:     core: "text-amber-200",
+370:     memory: "text-yellow-200",
+371:     relay: "text-violet-200",
+372:     gateway: "text-yellow-300",
+373:   };
+374: 
+375:   return (
+376:     <div
+377:       className="pointer-events-auto absolute right-4 top-1/2 z-30 -translate-y-1/2 w-72 max-h-[70vh] overflow-auto glass-panel glass-panel-strong rounded-2xl p-4"
+378:       style={{ backdropFilter: "blur(12px)" }}
+379:     >
+380:       <div className="flex items-center justify-between mb-3">
+381:         <h3 className="font-semibold text-slate-50">NODE INSPECTOR</h3>
+382:         <button
+383:           onClick={() => setSelectedId(null)}
+384:           className="text-slate-400 hover:text-slate-200"
+385:         >
+386:           ×
+387:         </button>
+388:       </div>
+389:       <div className="space-y-2 text-sm">
+390:         <div className="flex justify-between">
+391:           <span className="text-slate-400">ID</span>
+392:           <span className="font-mono text-slate-100">{node.id}</span>
+393:         </div>
+394:         <div className="flex justify-between">
+395:           <span className="text-slate-400">Zone</span>
+396:           <span className={`font-medium ${zoneColors[node.zone]}`}>{node.zone.toUpperCase()}</span>
+397:         </div>
+398:         <div className="flex justify-between">
+399:           <span className="text-slate-400">Cluster</span>
+400:           <span className="font-mono text-slate-100">#{node.clusterId}</span>
+401:         </div>
+402:         <div className="flex justify-between">
+403:           <span className="text-slate-400">Radius</span>
+404:           <span className="font-mono text-slate-100">{node.radius.toFixed(2)}</span>
+405:         </div>
+406:         <div className="flex justify-between">
+407:           <span className="text-slate-400">Position</span>
+408:           <span className="font-mono text-[10px] text-slate-300">
+409:             {node.x?.toFixed(1)}, {node.y?.toFixed(1)}, {node.z?.toFixed(1)}
+410:           </span>
+411:         </div>
+412:         <div className="pt-2 border-t border-white/10">
+413:           <p className="text-[10px] text-slate-400 mb-1">NEIGHBORS ({neighbors.length})</p>
+414:           <div className="space-y-1 max-h-40 overflow-auto">
+415:             {neighbors.map((n) => (
+416:               <div
+417:                 key={n.id}
+418:                 className="flex justify-between text-[11px] px-2 py-1 rounded hover:bg-white/5 cursor-pointer"
+419:                 onClick={() => setSelectedId(n.id)}
+420:               >
+421:                 <span className="font-mono text-slate-300">{n.id}</span>
+                <span className={`font-mono ${zoneColors[n.zone]}`}>{n.zone[0].toUpperCase()}</span>
+422:               </div>
+423:             ))}
+424:           </div>
+425:         </div>
+426:       </div>
+427:     </div>
+428:   );
+429: }
+430: 
+431: export function NeuralLabGraph() {
   const [webglState, setWebglState] = useState<"checking" | "ready" | "unsupported">("checking");
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [graphApi, setGraphApi] = useState<any>(null);
   const [sceneReady, setSceneReady] = useState(false);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef<any>(null);
   const cameraControlsRef = useRef<TrackballControls | null>(null);
@@ -369,6 +444,21 @@ export function NeuralLabGraph() {
   const materialMapRef = useRef<Map<string, NodeVisual>>(new Map());
 
   const graph = useMemo(() => generateLabTopology(), []);
+
+  const nodeById = useMemo(
+    () => new Map(graph.nodes.map((n) => [n.id, n])),
+    [graph]
+  );
+
+  const adjacency = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const node of graph.nodes) map.set(node.id, new Set());
+    for (const link of graph.links) {
+      map.get(link.source)?.add(link.target);
+      map.get(link.target)?.add(link.source);
+    }
+    return map;
+  }, [graph]);
 
   useEffect(() => {
     const element = stageRef.current;
@@ -593,6 +683,9 @@ export function NeuralLabGraph() {
           linkWidth="width"
           linkCurvature="curvature"
           enableNodeDrag
+          onNodeHover={(node) => setHoveredId(node?.id ?? null)}
+          onNodeClick={(node) => setSelectedId(node?.id ?? null)}
+          onBackgroundClick={() => setSelectedId(null)}
           d3AlphaDecay={0.021}
           d3VelocityDecay={0.28}
         />
