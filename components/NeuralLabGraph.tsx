@@ -808,6 +808,11 @@ function ViewButton({
           </div>
         </footer>
       </div>
+      <InspectorPanel
+        node={selectedId ? nodeById.get(selectedId) ?? null : null}
+        onClose={() => setSelectedId(null)}
+        onSelect={setSelectedId}
+      />
     </div>
   );
 }
