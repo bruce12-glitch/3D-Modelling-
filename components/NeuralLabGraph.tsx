@@ -717,7 +717,16 @@ const NEIGHBOR_ZONE_COLORS = {
   memory: "rgb(254 240 138)",
   relay: "rgb(221 214 254)",
   gateway: "rgb(253 224 71)",
+} as const
+
+const LINK_PALETTES = {
+  core: { primary: "#22d3ee", secondary: "#06b6d4", alpha: 0.5 },
+  memory: { primary: "#fbbf24", secondary: "#f59e0b", alpha: 0.6 },
+  relay: { primary: "#a78bfa", secondary: "#8b5cf6", alpha: 0.5 },
+  gateway: { primary: "#fbbf24", secondary: "#f97316", alpha: 0.7 },
+  highway: { primary: "#22d3ee", secondary: "#06b6d4", alpha: 0.8 },
 } as const;
+;
 
 
 
