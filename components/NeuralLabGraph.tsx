@@ -810,6 +810,8 @@ function ViewButton({
       </div>
       <InspectorPanel
         node={selectedId ? nodeById.get(selectedId) ?? null : null}
+        nodeById={nodeById}
+        adjacency={adjacency}
         onClose={() => setSelectedId(null)}
         onSelect={setSelectedId}
       />
