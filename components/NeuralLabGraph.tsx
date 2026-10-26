@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 const ForceGraph3D = dynamic(
   () => import("react-force-graph-3d").then((mod) => mod.default),
@@ -393,6 +394,14 @@ export function NeuralLabGraph() {
     const renderPass = new THREE.RenderPass(scene, camera);
     composer.addPass(renderPass);
 
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(size.width, size.height),
+      0.68,
+      0.62,
+      0.22
+    );
+    composer.addPass(bloomPass);
+
     const animate = () => {
       requestAnimationFrame(animate);
       controls.update();
@@ -405,6 +414,7 @@ export function NeuralLabGraph() {
     return () => {
       controls.dispose();
       composer.dispose();
+      bloomPass.dispose();
       for (const visual of materialMapRef.current.values()) {
         visual.mesh.material.dispose();
         visual.glowMaterial.dispose();
