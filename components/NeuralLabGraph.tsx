@@ -895,6 +895,15 @@ const SHADOW_XL = "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 
 const SHADOW_GLOW_SM = "0 0 10px -2px rgb(34 211 238 / 0.5)";
 const SHADOW_GLOW_MD = "0 0 20px -4px rgb(34 211 238 / 0.5)";
 const SHADOW_GLOW_LG = "0 0 30px -6px rgb(34 211 238 / 0.5)";
+
+const TRANSITION_FAST = "75ms";
+const TRANSITION_NORMAL = "150ms";
+const TRANSITION_SLOW = "300ms";
+const TRANSITION_SLOWER = "500ms";
+const TRANSITION_EASE = "ease";
+const TRANSITION_EASE_IN = "ease-in";
+const TRANSITION_EASE_OUT = "ease-out";
+const TRANSITION_EASE_IN_OUT = "ease-in-out";
 ;
 ;
 ;
