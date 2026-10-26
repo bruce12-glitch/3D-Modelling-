@@ -664,6 +664,46 @@ function ViewButton({
       visual.mesh.add(glowSprite);
     }
 
+    const clusterAnchors = new Map<number, THREE.Vector3>();
+    for (const node of graph.nodes) {
+      if (node.zone === "memory" && !clusterAnchors.has(node.clusterId)) {
+        clusterAnchors.set(node.clusterId, new THREE.Vector3(node.x ?? 0, node.y ?? 0, node.z ?? 0));
+      }
+    }
+
+    const clusterNames = [
+      "EPISODIC", "SEMANTIC", "PROCEDURAL", "WORKING",
+      "REFERENCE", "ASSOCIATIVE", "TEMPORAL"
+    ];
+
+    clusterAnchors.forEach((anchor, clusterId) => {
+      if (clusterId >= 1 && clusterId <= 7) {
+        const canvas = document.createElement("canvas");
+        canvas.width = 256;
+        canvas.height = 64;
+        const ctx = canvas.getContext("2d")!;
+        ctx.font = "bold 28px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "#22d3ee";
+        ctx.textAlign = "center";
+        ctx.fillText(clusterNames[clusterId - 1], 128, 42);
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        const material = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          opacity: 0.9,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+          sizeAttenuation: true,
+        });
+        const sprite = new THREE.Sprite(material);
+        sprite.position.copy(anchor).add(new THREE.Vector3(0, 50, 0));
+        sprite.scale.set(120, 30, 1);
+        scene.add(sprite);
+        labelsRef.current.push(sprite);
+      }
+    });
+
     const composer = new THREE.EffectComposer(renderer);
     const renderPass = new THREE.RenderPass(scene, camera);
     composer.addPass(renderPass);
@@ -712,6 +752,17 @@ function ViewButton({
         scene.remove(visual.mesh);
       }
       materialMapRef.current.clear();
+      for (const label of labelsRef.current) {
+        scene.remove(label);
+        label.material.map?.dispose();
+        label.material.dispose();
+      }
+      labelsRef.current = [];
+      if (ringRef.current) {
+        scene.remove(ringRef.current);
+        ringRef.current.material.dispose();
+        ringRef.current = null;
+      }
       for (const geometry of Object.values(assets.geometries)) {
         geometry.dispose();
       }
