@@ -1280,6 +1280,14 @@ const ALIGN_CENTER = "center";
 const ALIGN_END = "flex-end";
 const ALIGN_STRETCH = "stretch";
 const ALIGN_BASELINE = "baseline";
+
+const ALIGN_CONTENT_START = "flex-start";
+const ALIGN_CONTENT_CENTER = "center";
+const ALIGN_CONTENT_END = "flex-end";
+const ALIGN_CONTENT_BETWEEN = "space-between";
+const ALIGN_CONTENT_AROUND = "space-around";
+const ALIGN_CONTENT_EVENLY = "space-evenly";
+const ALIGN_CONTENT_STRETCH = "stretch";
 ;
 ;
 ;
