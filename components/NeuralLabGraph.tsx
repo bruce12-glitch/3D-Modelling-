@@ -346,6 +346,9 @@ type ViewMode = (typeof VIEW_MODES)[number];
 const NODE_ZONES = ["core", "memory", "relay", "gateway"] as const;
 type NodeZone = (typeof NODE_ZONES)[number];
 type LinkKind = (typeof LINK_KINDS)[number];
+const TARGET_FPS = 60;
+const FPS_SAMPLE_INTERVAL = 1000;
+const PERFORMANCE_WARN_THRESHOLD = 30;
 
 ;
 
