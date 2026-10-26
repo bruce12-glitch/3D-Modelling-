@@ -415,6 +415,40 @@ const VIGNETTE_GRADIENT = "radial-gradient(circle at 50% 50%, transparent 30%, r
 
 , ${b}, ${alpha})`;
 }
+
+
+function GraphSkeleton() {
+  return (
+    <div role="status" aria-live="polite" className="absolute inset-0 z-20 bg-black">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(6,182,212,0.13),transparent_40%),radial-gradient(circle_at_66%_34%,rgba(245,158,11,0.05),transparent_32%)]" />
+      <div className="lab-scanlines absolute inset-0 opacity-40" />
+      <div className="absolute left-1/2 top-1/2 h-52 w-52 -translate-x-1/2 -translate-y-1/2">
+        <div className="orbital-ring absolute inset-0 rounded-full border border-dashed border-cyan-200/20 animate-spin" />
+        <div className="orbital-ring-reverse absolute inset-6 rounded-full border border-amber-200/15 animate-spin-reverse" />
+        <div className="skeleton-sweep absolute inset-10 rounded-full border border-cyan-200/20" />
+        <div className="absolute inset-[38%] rounded-full bg-cyan-300/20 blur-2xl" />
+        <svg className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 text-cyan-100/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 14" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 17l14-14" />
+        </svg>
+      </div>
+      <div className="absolute inset-x-0 bottom-28 flex flex-col items-center px-5 text-center">
+        <div className="flex items-center gap-2">
+          <div className="live-dot" />
+          <p className="text-xs text-cyan-200/60 uppercase tracking-wide">Synthesizing cognition lattice</p>
+        </div>
+        <p className="mt-2 text-sm font-medium text-slate-200">540 nodes · 7 agentic memory satellites</p>
+        <p className="mt-2 max-w-sm text-xs leading-relaxed text-slate-500">
+          Seeding the prime cortex, memory anchors, and directed inference
+          highways with mulberry32(42).
+        </p>
+        <div className="mt-5 h-px w-56 bg-white/10">
+          <div className="skeleton-sweep h-full w-1/2 bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
+        </div>
+      </div>
+    </div>
+  );
+}
 ;
 }
 
