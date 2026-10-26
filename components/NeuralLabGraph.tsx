@@ -975,6 +975,15 @@ const BACKDROP_BLUR_SM = "blur(4px)";
 const BACKDROP_BLUR_MD = "blur(12px)";
 const BACKDROP_BLUR_LG = "blur(16px)";
 const BACKDROP_BLUR_XL = "blur(24px)";
+
+const TRANSFORM_NONE = "none";
+const TRANSFORM_CENTER = "translate(-50%, -50%)";
+const TRANSFORM_CENTER_X = "translateX(-50%)";
+const TRANSFORM_CENTER_Y = "translateY(-50%)";
+const TRANSFORM_SCALE_90 = "scale(0.9)";
+const TRANSFORM_SCALE_95 = "scale(0.95)";
+const TRANSFORM_SCALE_105 = "scale(1.05)";
+const TRANSFORM_SCALE_110 = "scale(1.1)";
 ;
 ;
 ;
