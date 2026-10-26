@@ -337,6 +337,10 @@ const STAR_OUTER_RADIUS = 2000;
 const STAR_SIZE_MIN = 0.5;
 const STAR_SIZE_MAX = 2.5;
 const STAR_OPACITY = 0.6;
+const HUD_TITLE = "AGI Lab / Cognition Mesh";
+const HUD_SUBTITLE = "540-node deterministic topology · 7 agentic memory satellites · 720° trackball";
+const HUD_SEED_LABEL = "Seed 42";
+const HUD_SYSTEM_LABEL = "Neural Systems";
 
 ;
 
