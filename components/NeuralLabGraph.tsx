@@ -1123,6 +1123,13 @@ const OFFSET_DISTANCE_50 = "50%";
 const OFFSET_DISTANCE_100 = "100%";
 const OFFSET_ROTATE_AUTO = "auto";
 const OFFSET_ROTATE_REVERSE = "reverse";
+
+const SCROLL_SNAP_NONE = "none";
+const SCROLL_SNAP_X = "x";
+const SCROLL_SNAP_Y = "y";
+const SCROLL_SNAP_BOTH = "both";
+const SCROLL_SNAP_MANDATORY = "mandatory";
+const SCROLL_SNAP_PROXIMITY = "proximity";
 ;
 ;
 ;
