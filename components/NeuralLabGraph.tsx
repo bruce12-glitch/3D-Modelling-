@@ -524,6 +524,15 @@ const spinKeyframes = `
 }
 `;
 
+const sweepKeyframes = `
+@keyframes sweep {
+  0% { transform: rotate(0deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0; }
+}
+`;
+
+
 
 interface NodeVisual {
   mesh: THREE.Mesh;
