@@ -1402,6 +1402,13 @@ const TEXT_DECORATION_DOUBLE = "double";
 const TEXT_DECORATION_DOTTED = "dotted";
 const TEXT_DECORATION_DASHED = "dashed";
 const TEXT_DECORATION_WAVY = "wavy";
+
+const TEXT_TRANSFORM_NONE = "none";
+const TEXT_TRANSFORM_CAPITALIZE = "capitalize";
+const TEXT_TRANSFORM_UPPERCASE = "uppercase";
+const TEXT_TRANSFORM_LOWERCASE = "lowercase";
+const TEXT_TRANSFORM_FULL_WIDTH = "full-width";
+const TEXT_TRANSFORM_FULL_SIZE_KANA = "full-size-kana";
 ;
 ;
 ;
