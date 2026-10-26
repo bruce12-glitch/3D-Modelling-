@@ -383,6 +383,32 @@ const STAR_COLOR_WHITE = [1.0, 1.0, 1.0] as const;
 const STAR_COLOR_DISTRIBUTION = [0.4, 0.3, 0.3] as const;
 const BG_GRADIENT_1 = "radial-gradient(ellipse at 50% 44%, rgba(6,182,212,0.11), transparent 44%)";
 const BG_GRADIENT_2 = "radial-gradient(ellipse at 78% 18%, rgba(245,158,11,0.05), transparent 34%)";
+
+
+function WebGLFallback() {
+  return (
+    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black p-5">
+      <div className="glass-panel glass-panel-strong relative w-full max-w-md rounded-2xl p-6">
+        <div className="flex items-center gap-3">
+          <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03]">
+            <svg className="h-5 w-5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-xs text-amber-200/70 uppercase tracking-wide">Renderer offline</p>
+            <h2 className="text-lg font-semibold text-white">WebGL is unavailable</h2>
+          </div>
+        </div>
+        <p className="mt-4 text-sm text-slate-400">
+          This 3D topology needs hardware-accelerated WebGL. Enable GPU
+          acceleration in your browser, update the graphics driver, or try a
+          recent Chrome, Edge, Firefox, or Safari build.
+        </p>
+      </div>
+    </div>
+  );
+}
 const VIGNETTE_GRADIENT = "radial-gradient(circle at 50% 50%, transparent 30%, rgba(3,5,8,0.45) 100%)";
 
 ;
