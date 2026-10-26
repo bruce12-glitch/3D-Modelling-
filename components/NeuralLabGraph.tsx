@@ -799,6 +799,12 @@ const KEYBOARD_SHORTCUTS = [
   { key: "Esc", action: "Deselect node" },
 ] as const;
 
+const CLUSTER_NAMES = [
+  "EPISODIC", "SEMANTIC", "PROCEDURAL", "WORKING",
+  "REFERENCE", "ASSOCIATIVE", "TEMPORAL",
+] as const;
+
+
 
 }
 
