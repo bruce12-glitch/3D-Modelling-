@@ -1,0 +1,31 @@
+{
+  "name": "neural-lab-topology",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive 3D neural network topology for an AGI research lab — Next.js, React Three Fiber-adjacent ForceGraph3D, custom Three.js materials, and 720° camera choreography.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "d3-force-3d": "3.0.6",
+    "lucide-react": "1.61.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-force-graph-3d": "1.29.2",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.10.12",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "postcss": "8.5.6",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}
