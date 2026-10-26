@@ -995,6 +995,11 @@ const SKEW_X_10 = "skewX(10deg)";
 const SKEW_Y_10 = "skewY(10deg)";
 const SKEW_X_N10 = "skewX(-10deg)";
 const SKEW_Y_N10 = "skewY(-10deg)";
+
+const PERSPECTIVE_NONE = "none";
+const PERSPECTIVE_500 = "perspective(500px)";
+const PERSPECTIVE_1000 = "perspective(1000px)";
+const PERSPECTIVE_2000 = "perspective(2000px)";
 ;
 ;
 ;
