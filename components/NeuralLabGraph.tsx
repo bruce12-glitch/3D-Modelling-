@@ -789,6 +789,17 @@ const fpsGoodStyle = { color: "rgb(34 197 94)" };
 const fpsWarnStyle = { color: "rgb(251 191 36)" };
 const fpsBadStyle = { color: "rgb(239 68 68)" };
 
+const KEYBOARD_SHORTCUTS = [
+  { key: "1", action: "Lattice view" },
+  { key: "2", action: "Core view" },
+  { key: "3", action: "Memory view" },
+  { key: "4", action: "Immersion view" },
+  { key: "Space", action: "Toggle auto-orbit" },
+  { key: "R", action: "Reset view" },
+  { key: "Esc", action: "Deselect node" },
+] as const;
+
+
 }
 
 function BrandMark() {
