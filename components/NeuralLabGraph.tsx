@@ -460,6 +460,17 @@ function ViewButton({
     return map;
   }, [graph]);
 
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const focusIdRef = useRef<string | null>(null);
+  const adjacencyRef = useRef(adjacency);
+
+  adjacencyRef.current = adjacency;
+  focusIdRef.current = hoveredId ?? selectedId;
+
+  const activeFocusId = hoveredId ?? selectedId;
+  const focusNode = activeFocusId ? nodeById.get(activeFocusId) : undefined;
+
   useEffect(() => {
     const element = stageRef.current;
     if (!element) return;
@@ -549,6 +560,36 @@ function ViewButton({
   useEffect(() => {
     autoOrbitRef.current = autoOrbit;
   }, [autoOrbit]);
+
+  const linkColor = useCallback((link: any) => {
+    const focusId = focusIdRef.current;
+    if (!focusId) return link.color;
+    const source = typeof link.source === "object" ? link.source.id : link.source;
+    const target = typeof link.target === "object" ? link.target.id : link.target;
+    if (source === focusId || target === focusId) {
+      return link.color.replace(/[\d.]+\)$/, "1)");
+    }
+    return link.color.replace(/[\d.]+\)$/, "0.15)");
+  }, []);
+
+  const linkWidth = useCallback((link: any) => {
+    const focusId = focusIdRef.current;
+    if (!focusId) return link.width;
+    const source = typeof link.source === "object" ? link.source.id : link.source;
+    const target = typeof link.target === "object" ? link.target.id : link.target;
+    return source === focusId || target === focusId ? link.width * 2.5 : link.width * 0.3;
+  }, []);
+
+  const linkParticles = useCallback((link: any) => {
+    const focusId = focusIdRef.current;
+    if (!focusId) return link.particles ?? 4;
+    const source = typeof link.source === "object" ? link.source.id : link.source;
+    const target = typeof link.target === "object" ? link.target.id : link.target;
+    if (source === focusId || target === focusId) return Math.max(link.particles ?? 4, 8);
+    return 0;
+  }, []);
+
+  const linkCurvature = useCallback((link: any) => link.curvature, []);
 
   useEffect(() => {
     const api = fgRef.current;
@@ -679,9 +720,10 @@ function ViewButton({
             mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
             return mesh;
           }}
-          linkColor="color"
-          linkWidth="width"
-          linkCurvature="curvature"
+          linkColor={linkColor}
+          linkWidth={linkWidth}
+          linkCurvature={linkCurvature}
+          linkDirectionalParticles={linkParticles}
           enableNodeDrag
           onNodeHover={(node) => setHoveredId(node?.id ?? null)}
           onNodeClick={(node) => setSelectedId(node?.id ?? null)}
