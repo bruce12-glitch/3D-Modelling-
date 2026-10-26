@@ -1409,6 +1409,10 @@ const TEXT_TRANSFORM_UPPERCASE = "uppercase";
 const TEXT_TRANSFORM_LOWERCASE = "lowercase";
 const TEXT_TRANSFORM_FULL_WIDTH = "full-width";
 const TEXT_TRANSFORM_FULL_SIZE_KANA = "full-size-kana";
+
+const TEXT_OVERFLOW_CLIP = "clip";
+const TEXT_OVERFLOW_ELLIPSIS = "ellipsis";
+const TEXT_OVERFLOW_STRING = "string";
 ;
 ;
 ;
