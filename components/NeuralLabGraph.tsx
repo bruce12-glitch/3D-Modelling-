@@ -1318,6 +1318,16 @@ const BORDER_WIDTH_1 = "1px";
 const BORDER_WIDTH_2 = "2px";
 const BORDER_WIDTH_4 = "4px";
 const BORDER_WIDTH_8 = "8px";
+
+const BORDER_NONE = "none";
+const BORDER_SOLID = "solid";
+const BORDER_DASHED = "dashed";
+const BORDER_DOTTED = "dotted";
+const BORDER_DOUBLE = "double";
+const BORDER_GROOVE = "groove";
+const BORDER_RIDGE = "ridge";
+const BORDER_INSET = "inset";
+const BORDER_OUTSET = "outset";
 ;
 ;
 ;
