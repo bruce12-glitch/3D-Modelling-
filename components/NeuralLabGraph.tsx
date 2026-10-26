@@ -600,6 +600,21 @@ const viewButtonHoverStyle = {
   color: "rgb(241 245 249)",
 };
 
+const statusBadgeActiveStyle = {
+  borderRadius: "9999px",
+  border: "1px solid rgba(251, 191, 36, 0.2)",
+  background: "rgba(251, 191, 36, 0.05)",
+  color: "rgb(253 230 138)",
+};
+
+const statusBadgeInactiveStyle = {
+  borderRadius: "9999px",
+  border: "1px solid rgba(34, 211, 238, 0.2)",
+  background: "rgba(34, 211, 238, 0.05)",
+  color: "rgb(165 243 252)",
+};
+
+
 
 
 
