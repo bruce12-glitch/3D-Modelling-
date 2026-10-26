@@ -1352,6 +1352,12 @@ const RING_INSET = "inset";
 const RING_OFFSET_0 = "0";
 const RING_OFFSET_1 = "1px";
 const RING_OFFSET_2 = "2px";
+
+const DIVIDE_Y = "border-y";
+const DIVIDE_X = "border-x";
+const DIVIDE_SOLID = "solid";
+const DIVIDE_DASHED = "dashed";
+const DIVIDE_DOTTED = "dotted";
 ;
 ;
 ;
