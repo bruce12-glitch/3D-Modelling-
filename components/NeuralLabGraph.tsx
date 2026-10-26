@@ -533,6 +533,38 @@ function ViewButton({
     }
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      switch (event.key.toLowerCase()) {
+        case "1":
+          applyView("lattice");
+          break;
+        case "2":
+          applyView("core");
+          break;
+        case "3":
+          applyView("memory");
+          break;
+        case "4":
+          applyView("immersion");
+          break;
+        case " ":
+          event.preventDefault();
+          setAutoOrbit((prev) => !prev);
+          break;
+        case "r":
+          applyView("lattice", 2000);
+          break;
+        case "escape":
+          setSelectedId(null);
+          break;
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [applyView]);
+
   const handleGraphRef = useCallback((instance: any) => {
     fgRef.current = instance;
     setGraphApi(instance);
