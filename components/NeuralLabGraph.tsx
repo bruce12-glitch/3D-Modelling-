@@ -1234,6 +1234,12 @@ const OBJECT_FIT_CONTAIN = "contain";
 const OBJECT_FIT_COVER = "cover";
 const OBJECT_FIT_NONE = "none";
 const OBJECT_FIT_SCALE_DOWN = "scale-down";
+
+const OBJECT_POS_CENTER = "center";
+const OBJECT_POS_TOP = "top";
+const OBJECT_POS_BOTTOM = "bottom";
+const OBJECT_POS_LEFT = "left";
+const OBJECT_POS_RIGHT = "right";
 ;
 ;
 ;
