@@ -1370,6 +1370,9 @@ const ACCENT_VIOLET = "#a78bfa";
 const CARET_AUTO = "auto";
 const CARET_CYAN = "#22d3ee";
 const CARET_AMBER = "#fbbf24";
+
+const SELECTION_BG = "rgba(34, 211, 238, 0.3)";
+const SELECTION_TEXT = "#ffffff";
 ;
 ;
 ;
