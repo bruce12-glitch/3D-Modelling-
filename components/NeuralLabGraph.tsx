@@ -1209,6 +1209,12 @@ const DISPLAY_GRID = "grid";
 const DISPLAY_INLINE_GRID = "inline-grid";
 const DISPLAY_CONTENTS = "contents";
 const DISPLAY_NONE = "none";
+
+const POSITION_STATIC = "static";
+const POSITION_RELATIVE = "relative";
+const POSITION_ABSOLUTE = "absolute";
+const POSITION_FIXED = "fixed";
+const POSITION_STICKY = "sticky";
 ;
 ;
 ;
