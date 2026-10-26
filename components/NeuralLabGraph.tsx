@@ -839,6 +839,12 @@ const SAFE_AREA_TOP = "env(safe-area-inset-top)";
 const SAFE_AREA_BOTTOM = "env(safe-area-inset-bottom)";
 const SAFE_AREA_LEFT = "env(safe-area-inset-left)";
 const SAFE_AREA_RIGHT = "env(safe-area-inset-right)";
+
+const BREAKPOINT_SM = 640;
+const BREAKPOINT_MD = 768;
+const BREAKPOINT_LG = 1024;
+const BREAKPOINT_XL = 1280;
+const BREAKPOINT_2XL = 1536;
 ;
 ;
 ;
