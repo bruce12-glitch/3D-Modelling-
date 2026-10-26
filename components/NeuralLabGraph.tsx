@@ -1096,6 +1096,11 @@ const BG_CLIP_TEXT = "text";
 const BG_ORIGIN_BORDER = "border-box";
 const BG_ORIGIN_PADDING = "padding-box";
 const BG_ORIGIN_CONTENT = "content-box";
+
+const MASK_NONE = "none";
+const MASK_MODE_ALPHA = "alpha";
+const MASK_MODE_LUMINANCE = "luminance";
+const MASK_MODE_MATCH_SOURCE = "match-source";
 ;
 ;
 ;
