@@ -725,7 +725,16 @@ const LINK_PALETTES = {
   relay: { primary: "#a78bfa", secondary: "#8b5cf6", alpha: 0.5 },
   gateway: { primary: "#fbbf24", secondary: "#f97316", alpha: 0.7 },
   highway: { primary: "#22d3ee", secondary: "#06b6d4", alpha: 0.8 },
+} as const
+
+const PARTICLE_PALETTES = {
+  core: "#22d3ee",
+  memory: "#fbbf24",
+  relay: "#a78bfa",
+  gateway: "#fbbf24",
+  highway: "#22d3ee",
 } as const;
+;
 ;
 
 
