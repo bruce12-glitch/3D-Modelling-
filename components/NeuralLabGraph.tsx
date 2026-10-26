@@ -1195,6 +1195,10 @@ const OVERFLOW_HIDDEN = "hidden";
 const OVERFLOW_SCROLL = "scroll";
 const OVERFLOW_VISIBLE = "visible";
 const OVERFLOW_CLIP = "clip";
+
+const VISIBILITY_VISIBLE = "visible";
+const VISIBILITY_HIDDEN = "hidden";
+const VISIBILITY_COLLAPSE = "collapse";
 ;
 ;
 ;
