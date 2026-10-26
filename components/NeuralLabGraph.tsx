@@ -119,15 +119,80 @@ function generateLabTopology(): GraphData {
     });
   }
 
-  // Simple links for now
-  for (let i = 0; i < nodes.length - 1; i++) {
+  // Core links - dense small-world within core
+  const coreNodes = nodes.filter((n) => n.zone === "core");
+  for (let i = 0; i < coreNodes.length; i++) {
+    const connections = 3 + Math.floor(rng() * 4);
+    for (let j = 0; j < connections; j++) {
+      const targetIdx = (i + 1 + Math.floor(rng() * (coreNodes.length - 1))) % coreNodes.length;
+      links.push({
+        source: coreNodes[i].id,
+        target: coreNodes[targetIdx].id,
+        width: 0.4 + rng() * 0.3,
+        curvature: 0.1 + rng() * 0.2,
+        kind: "core",
+        color: `rgba(34, 211, 238, ${0.3 + rng() * 0.3})`,
+      });
+    }
+  }
+
+  // Memory satellite intra-cluster links
+  for (let s = 0; s < 7; s++) {
+    const clusterNodes = nodes.filter((n) => n.zone === "memory" && n.clusterId === s + 1);
+    for (let i = 0; i < clusterNodes.length; i++) {
+      const connections = 2 + Math.floor(rng() * 3);
+      for (let j = 0; j < connections; j++) {
+        const targetIdx = (i + 1 + Math.floor(rng() * (clusterNodes.length - 1))) % clusterNodes.length;
+        links.push({
+          source: clusterNodes[i].id,
+          target: clusterNodes[targetIdx].id,
+          width: 0.5 + rng() * 0.3,
+          curvature: 0.2 + rng() * 0.3,
+          kind: "memory",
+          color: `rgba(251, 191, 36, ${0.4 + rng() * 0.3})`,
+        });
+      }
+    }
+  }
+
+  // Relay chain links
+  const relayNodes = nodes.filter((n) => n.zone === "relay");
+  for (let i = 0; i < relayNodes.length - 1; i++) {
     links.push({
-      source: nodes[i].id,
-      target: nodes[i + 1].id,
-      width: 0.5,
-      curvature: 0.2,
-      kind: "core",
-      color: "#22d3ee80",
+      source: relayNodes[i].id,
+      target: relayNodes[i + 1].id,
+      width: 0.8,
+      curvature: 0.15,
+      kind: "relay",
+      color: `rgba(167, 139, 250, ${0.5 + rng() * 0.3})`,
+    });
+  }
+
+  // Gateway to relay highway links
+  const gatewayNodes = nodes.filter((n) => n.zone === "gateway");
+  for (const gateway of gatewayNodes) {
+    const targetRelay = relayNodes[Math.floor(rng() * relayNodes.length)];
+    links.push({
+      source: gateway.id,
+      target: targetRelay.id,
+      width: 1.5,
+      curvature: 0.05,
+      kind: "highway",
+      color: `rgba(34, 211, 238, ${0.7 + rng() * 0.2})`,
+    });
+  }
+
+  // Core to relay connections
+  for (let i = 0; i < 12; i++) {
+    const coreNode = coreNodes[Math.floor(rng() * coreNodes.length)];
+    const relayNode = relayNodes[Math.floor(rng() * relayNodes.length)];
+    links.push({
+      source: coreNode.id,
+      target: relayNode.id,
+      width: 0.6,
+      curvature: 0.1,
+      kind: "highway",
+      color: `rgba(6, 182, 212, ${0.5 + rng() * 0.3})`,
     });
   }
 
