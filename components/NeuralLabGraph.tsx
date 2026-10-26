@@ -904,6 +904,12 @@ const TRANSITION_EASE = "ease";
 const TRANSITION_EASE_IN = "ease-in";
 const TRANSITION_EASE_OUT = "ease-out";
 const TRANSITION_EASE_IN_OUT = "ease-in-out";
+
+const EASE_OUT_QUART = "cubic-bezier(0.25, 1, 0.5, 1)";
+const EASE_OUT_EXPO = "cubic-bezier(0.16, 1, 0.3, 1)";
+const EASE_OUT_CIRC = "cubic-bezier(0.08, 0.82, 0.17, 1)";
+const EASE_IN_OUT_QUART = "cubic-bezier(0.77, 0, 0.175, 1)";
+const EASE_IN_OUT_EXPO = "cubic-bezier(0.87, 0, 0.13, 1)";
 ;
 ;
 ;
