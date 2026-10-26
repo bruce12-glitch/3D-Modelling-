@@ -345,6 +345,7 @@ const VIEW_MODES = ["lattice", "core", "memory", "immersion"] as const;
 type ViewMode = (typeof VIEW_MODES)[number];
 const NODE_ZONES = ["core", "memory", "relay", "gateway"] as const;
 type NodeZone = (typeof NODE_ZONES)[number];
+type LinkKind = (typeof LINK_KINDS)[number];
 
 ;
 
