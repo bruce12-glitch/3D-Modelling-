@@ -1189,6 +1189,12 @@ const RESIZE_NE = "ne";
 const RESIZE_NW = "nw";
 const RESIZE_SE = "se";
 const RESIZE_SW = "sw";
+
+const OVERFLOW_AUTO = "auto";
+const OVERFLOW_HIDDEN = "hidden";
+const OVERFLOW_SCROLL = "scroll";
+const OVERFLOW_VISIBLE = "visible";
+const OVERFLOW_CLIP = "clip";
 ;
 ;
 ;
