@@ -1328,6 +1328,10 @@ const BORDER_GROOVE = "groove";
 const BORDER_RIDGE = "ridge";
 const BORDER_INSET = "inset";
 const BORDER_OUTSET = "outset";
+
+const BORDER_COLOR_CURRENT = "currentColor";
+const BORDER_COLOR_TRANSPARENT = "transparent";
+const BORDER_COLOR_INHERIT = "inherit";
 ;
 ;
 ;
