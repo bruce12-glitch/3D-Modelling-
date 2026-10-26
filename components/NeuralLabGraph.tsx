@@ -1114,6 +1114,15 @@ const SHAPE_CIRCLE = "circle()";
 const SHAPE_ELLIPSE = "ellipse()";
 const SHAPE_INSET = "inset(0)";
 const SHAPE_POLYGON = "polygon()";
+
+const OFFSET_NONE = "none";
+const OFFSET_PATH_RAY = "ray(45deg closest-side)";
+const OFFSET_PATH_CIRCLE = "path('M 50 50 m -25,0 a 25,25 0 1,0 50,0 a 25,25 0 1,0 -50,0')";
+const OFFSET_DISTANCE_0 = "0%";
+const OFFSET_DISTANCE_50 = "50%";
+const OFFSET_DISTANCE_100 = "100%";
+const OFFSET_ROTATE_AUTO = "auto";
+const OFFSET_ROTATE_REVERSE = "reverse";
 ;
 ;
 ;
