@@ -704,6 +704,44 @@ function ViewButton({
       }
     });
 
+    const starGeometry = new THREE.BufferGeometry();
+    const starCount = 3000;
+    const starPositions = new Float32Array(starCount * 3);
+    const starSizes = new Float32Array(starCount);
+    const starColors = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const radius = 800 + Math.random() * 1200;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      starPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      starPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      starPositions[i * 3 + 2] = radius * Math.cos(phi);
+      starSizes[i] = 0.5 + Math.random() * 2;
+      const colorChoice = Math.random();
+      if (colorChoice < 0.4) {
+        starColors[i * 3] = 0.2; starColors[i * 3 + 1] = 0.8; starColors[i * 3 + 2] = 1.0;
+      } else if (colorChoice < 0.7) {
+        starColors[i * 3] = 1.0; starColors[i * 3 + 1] = 0.75; starColors[i * 3 + 2] = 0.2;
+      } else {
+        starColors[i * 3] = 1.0; starColors[i * 3 + 1] = 1.0; starColors[i * 3 + 2] = 1.0;
+      }
+    }
+    starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    starGeometry.setAttribute("size", new THREE.BufferAttribute(starSizes, 1));
+    starGeometry.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
+    const starMaterial = new THREE.PointsMaterial({
+      size: 1,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
+    });
+    const starField = new THREE.Points(starGeometry, starMaterial);
+    scene.add(starField);
+    labelsRef.current.push(starField as unknown as THREE.Sprite);
+
     const composer = new THREE.EffectComposer(renderer);
     const renderPass = new THREE.RenderPass(scene, camera);
     composer.addPass(renderPass);
