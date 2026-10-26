@@ -813,6 +813,16 @@ const MATERIAL_DISPOSE_BATCH = 10;
 const MAX_RETRY_ATTEMPTS = 3;
 const RETRY_DELAY_MS = 1000;
 const ERROR_REPORT_TIMEOUT = 5000;
+
+const ARIA_LABELS = {
+  canvas: "Interactive 3D topology of AGI research lab with 540 nodes",
+  viewButton: (view: string) => `Switch to ${view} view`,
+  orbitToggle: (enabled: boolean) => enabled ? "Pause auto-orbit" : "Resume auto-orbit",
+  nodeHover: (id: string) => `Node ${id}`,
+  nodeSelect: (id: string) => `Select node ${id}`,
+  closeInspector: "Close node inspector",
+  reload: "Reload the topology",
+} as const;
 ;
 ;
 ;
