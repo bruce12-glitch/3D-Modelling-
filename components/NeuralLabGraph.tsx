@@ -1455,6 +1455,17 @@ const FONT_VARIANT_PETITE_CAPS = "petite-caps";
 const FONT_VARIANT_ALL_PETITE_CAPS = "all-petite-caps";
 const FONT_VARIANT_UNICASE = "unicase";
 const FONT_VARIANT_TITLING_CAPS = "titling-caps";
+
+const FONT_FEATURE_NORMAL = "normal";
+const FONT_FEATURE_LIGA = ""liga" 1";
+const FONT_FEATURE_CLIG = ""clig" 1";
+const FONT_FEATURE_CALT = ""calt" 1";
+const FONT_FEATURE_KERN = ""kern" 1";
+const FONT_FEATURE_LNUM = ""lnum" 1";
+const FONT_FEATURE_ONUM = ""onum" 1";
+const FONT_FEATURE_PNUM = ""pnum" 1";
+const FONT_FEATURE_TNUM = ""tnum" 1";
+const FONT_FEATURE_ZERO = ""zero" 1";
 ;
 ;
 ;
