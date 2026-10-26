@@ -343,6 +343,8 @@ const HUD_SEED_LABEL = "Seed 42";
 const HUD_SYSTEM_LABEL = "Neural Systems";
 const VIEW_MODES = ["lattice", "core", "memory", "immersion"] as const;
 type ViewMode = (typeof VIEW_MODES)[number];
+const NODE_ZONES = ["core", "memory", "relay", "gateway"] as const;
+type NodeZone = (typeof NODE_ZONES)[number];
 
 ;
 
