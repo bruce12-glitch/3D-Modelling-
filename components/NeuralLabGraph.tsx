@@ -312,7 +312,12 @@ export function NeuralLabGraph() {
   const [webglState, setWebglState] = useState<"checking" | "ready" | "unsupported">("checking");
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [graphApi, setGraphApi] = useState<any>(null);
+  const [sceneReady, setSceneReady] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
+  const fgRef = useRef<any>(null);
+  const cameraControlsRef = useRef<TrackballControls | null>(null);
+  const assetsRef = useRef<LabAssets | null>(null);
+  const materialMapRef = useRef<Map<string, NodeVisual>>(new Map());
 
   const graph = useMemo(() => generateLabTopology(), []);
 
@@ -342,6 +347,7 @@ export function NeuralLabGraph() {
   }, []);
 
   const handleGraphRef = useCallback((instance: any) => {
+    fgRef.current = instance;
     setGraphApi(instance);
   }, []);
 
