@@ -271,6 +271,12 @@ const ZONE_COLORS = {
 const LINK_KINDS = [
   "core", "memory", "relay", "gateway", "highway",
 ] as const;
+
+const DEFAULT_LINK_WIDTH = 0.5;
+const HIGHWAY_LINK_WIDTH = 1.5;
+const CORE_LINK_WIDTH = 0.4;
+const MEMORY_LINK_WIDTH = 0.5;
+
 ;
 
 , ${b}, ${alpha})`;
