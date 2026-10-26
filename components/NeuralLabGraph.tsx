@@ -517,6 +517,14 @@ const liveDotStyle = {
   animation: "pulse 2s ease-in-out infinite",
 };
 
+const spinKeyframes = `
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+`;
+
+
 interface NodeVisual {
   mesh: THREE.Mesh;
   glowMaterial: THREE.SpriteMaterial;
