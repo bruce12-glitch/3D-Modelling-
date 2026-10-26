@@ -872,6 +872,12 @@ const FONT_SIZE_3XL = "1.5rem";
 const LINE_HEIGHT_TIGHT = 1.1;
 const LINE_HEIGHT_NORMAL = 1.5;
 const LINE_HEIGHT_RELAXED = 1.625;
+
+const LETTER_SPACING_TIGHT = "-0.02em";
+const LETTER_SPACING_NORMAL = "0";
+const LETTER_SPACING_WIDE = "0.02em";
+const LETTER_SPACING_WIDER = "0.1em";
+const LETTER_SPACING_WIDEST = "0.2em";
 ;
 ;
 ;
