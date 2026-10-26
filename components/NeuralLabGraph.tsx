@@ -1043,6 +1043,15 @@ const GRADIENT_TO_TOP_RIGHT = "to top right";
 const GRADIENT_TO_BOTTOM_RIGHT = "to bottom right";
 const GRADIENT_TO_BOTTOM_LEFT = "to bottom left";
 const GRADIENT_TO_TOP_LEFT = "to top left";
+
+const GRADIENT_0DEG = "0deg";
+const GRADIENT_45DEG = "45deg";
+const GRADIENT_90DEG = "90deg";
+const GRADIENT_135DEG = "135deg";
+const GRADIENT_180DEG = "180deg";
+const GRADIENT_225DEG = "225deg";
+const GRADIENT_270DEG = "270deg";
+const GRADIENT_315DEG = "315deg";
 ;
 ;
 ;
