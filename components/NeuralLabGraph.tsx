@@ -1022,6 +1022,12 @@ const KF_25 = "25%";
 const KF_50 = "50%";
 const KF_75 = "75%";
 const KF_100 = "100%";
+
+const COLOR_FORMAT_HEX = "hex";
+const COLOR_FORMAT_RGB = "rgb";
+const COLOR_FORMAT_RGBA = "rgba";
+const COLOR_FORMAT_HSL = "hsl";
+const COLOR_FORMAT_HSLA = "hsla";
 ;
 ;
 ;
