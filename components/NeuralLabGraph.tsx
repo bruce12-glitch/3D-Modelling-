@@ -341,6 +341,8 @@ const HUD_TITLE = "AGI Lab / Cognition Mesh";
 const HUD_SUBTITLE = "540-node deterministic topology · 7 agentic memory satellites · 720° trackball";
 const HUD_SEED_LABEL = "Seed 42";
 const HUD_SYSTEM_LABEL = "Neural Systems";
+const VIEW_MODES = ["lattice", "core", "memory", "immersion"] as const;
+type ViewMode = (typeof VIEW_MODES)[number];
 
 ;
 
