@@ -1422,6 +1422,11 @@ const TEXT_WRAP_PRETTY = "pretty";
 const HYPHENS_NONE = "none";
 const HYPHENS_MANUAL = "manual";
 const HYPHENS_AUTO = "auto";
+
+const WORD_BREAK_NORMAL = "normal";
+const WORD_BREAK_BREAK_ALL = "break-all";
+const WORD_BREAK_KEEP_ALL = "keep-all";
+const WORD_BREAK_BREAK_WORD = "break-word";
 ;
 ;
 ;
