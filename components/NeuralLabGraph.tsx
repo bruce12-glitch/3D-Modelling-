@@ -1221,6 +1221,13 @@ const FLOAT_LEFT = "left";
 const FLOAT_RIGHT = "right";
 const FLOAT_INLINE_START = "inline-start";
 const FLOAT_INLINE_END = "inline-end";
+
+const CLEAR_NONE = "none";
+const CLEAR_LEFT = "left";
+const CLEAR_RIGHT = "right";
+const CLEAR_BOTH = "both";
+const CLEAR_INLINE_START = "inline-start";
+const CLEAR_INLINE_END = "inline-end";
 ;
 ;
 ;
