@@ -1427,6 +1427,12 @@ const WORD_BREAK_NORMAL = "normal";
 const WORD_BREAK_BREAK_ALL = "break-all";
 const WORD_BREAK_KEEP_ALL = "keep-all";
 const WORD_BREAK_BREAK_WORD = "break-word";
+
+const WRITING_MODE_HORIZONTAL = "horizontal-tb";
+const WRITING_MODE_VERTICAL_RL = "vertical-rl";
+const WRITING_MODE_VERTICAL_LR = "vertical-lr";
+const WRITING_MODE_SIDEWAYS_RL = "sideways-rl";
+const WRITING_MODE_SIDEWAYS_LR = "sideways-lr";
 ;
 ;
 ;
