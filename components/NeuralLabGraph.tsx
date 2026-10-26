@@ -635,6 +635,37 @@ const statValueStyle = {
   fontFamily: "monospace",
 };
 
+const inspectorPanelStyle = {
+  position: "absolute",
+  right: "1rem",
+  top: "50%",
+  transform: "translateY(-50%)",
+  width: "18rem",
+  maxHeight: "70vh",
+  overflow: "auto",
+  zIndex: 30,
+  backdropFilter: "blur(12px)",
+  borderRadius: "1rem",
+  padding: "1rem",
+};
+
+const inspectorHeaderStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: "0.75rem",
+};
+
+const inspectorTitleStyle = {
+  fontWeight: "600",
+  color: "rgb(248 250 252)",
+};
+
+const inspectorCloseButtonStyle = {
+  color: "rgb(148 163 184)",
+};
+
+
 
 
 
