@@ -1383,6 +1383,14 @@ const APPEARANCE_AUTO = "auto";
 const APPEARANCE_BUTTON = "button";
 const APPEARANCE_TEXTFIELD = "textfield";
 const APPEARANCE_MENULIST = "menulist";
+
+const SCROLLBAR_WIDTH_THIN = "thin";
+const SCROLLBAR_WIDTH_AUTO = "auto";
+const SCROLLBAR_WIDTH_NONE = "none";
+const SCROLLBAR_TRACK_BG = "rgba(0, 0, 0, 0.1)";
+const SCROLLBAR_THUMB_BG = "rgba(34, 211, 238, 0.5)";
+const SCROLLBAR_THUMB_HOVER = "rgba(34, 211, 238, 0.7)";
+const SCROLLBAR_CORNER_BG = "transparent";
 ;
 ;
 ;
