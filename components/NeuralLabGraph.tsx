@@ -772,6 +772,10 @@ const DRAG_ELASTICITY = 0.1;
 const DRAG_DAMPING = 0.9;
 const DRAG_MAX_FORCE = 100;
 const DRAG_RELEASE_VELOCITY = 0.5;
+
+const SPRING_STIFFNESS = 0.1;
+const SPRING_DAMPING = 0.8;
+const SPRING_MASS = 1.0;
 ;
 ;
 ;
