@@ -371,6 +371,8 @@ const NODE_THICKNESS = 0.5;
 const NODE_EMISSIVE_INTENSITY = 0.4;
 const GLOW_OPACITY = 0.35;
 const GLOW_BLENDING = THREE.AdditiveBlending;
+const RING_OPACITY = 0.8;
+const RING_BLENDING = THREE.AdditiveBlending;
 
 ;
 
