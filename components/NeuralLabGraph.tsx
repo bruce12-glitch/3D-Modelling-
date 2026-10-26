@@ -40,4 +40,12 @@ const FONT_DISPLAY_AUTO = "auto";
 const FONT_DISPLAY_BLOCK = "block";
 const FONT_DISPLAY_SWAP = "swap";
 const FONT_DISPLAY_FALLBACK = "fallback";
-const FONT_DISPLAY_OPTIONAL = "optional";
+const FONT_DISPLAY_OPTIONAL = "optional";// CSS containment constants
+const CONTAIN_NONE = \
+none\;
+const CONTAIN_STRICT = \strict\;
+const CONTAIN_CONTENT = \content\;
+const CONTAIN_SIZE = \size\;
+const CONTAIN_LAYOUT = \layout\;
+const CONTAIN_STYLE = \style\;
+const CONTAIN_PAINT = \paint\;
