@@ -354,6 +354,66 @@ export function NeuralLabGraph() {
     setGraphApi(instance);
   }, []);
 
+  const [activeView, setActiveView] = useState<"lattice" | "core" | "memory" | "immersion">("lattice");
+  const [autoOrbit, setAutoOrbit] = useState(true);
+  const lastInteractionRef = useRef(0);
+  const autoOrbitRef = useRef(true);
+
+  const moveCamera = useCallback(
+    (target: THREE.Vector3, position: THREE.Vector3, transition = 1500) => {
+      const api = fgRef.current;
+      if (!api) return;
+      api.cameraPosition(
+        { x: position.x, y: position.y, z: position.z },
+        { x: target.x, y: target.y, z: target.z },
+        transition,
+      );
+      lastInteractionRef.current = performance.now();
+    },
+    [],
+  );
+
+  const applyView = useCallback(
+    (view: "lattice" | "core" | "memory" | "immersion", transition = 1500) => {
+      const api = fgRef.current;
+      if (!api) return;
+      const camera = api.camera() as THREE.PerspectiveCamera;
+      camera.up.set(0, 1, 0);
+      const target = new THREE.Vector3();
+      const position = new THREE.Vector3();
+      const aspect = size.width / Math.max(1, size.height);
+
+      if (view === "lattice") {
+        const distance = aspect < 0.7 ? 1035 : aspect < 1.05 ? 885 : 760;
+        target.set(0, 0, 0);
+        position.set(0, distance * (aspect < 0.7 ? 0.08 : 0.14), distance);
+      } else if (view === "core") {
+        const distance = aspect < 0.8 ? 320 : 258;
+        target.set(0, 0, 0);
+        position.set(0, distance * 0.16, distance);
+      } else if (view === "memory") {
+        const cluster = graph.nodes.find((n) => n.clusterId === 1);
+        if (cluster) {
+          target.set(cluster.x ?? 0, cluster.y ?? 0, cluster.z ?? 0);
+          const radial = target.clone().normalize();
+          const distance = aspect < 0.8 ? 192 : 162;
+          position.copy(target).addScaledVector(radial, distance).add(new THREE.Vector3(0, distance * 0.16, 0));
+        }
+      } else if (view === "immersion") {
+        target.set(0, 0, 0);
+        position.set(0, 0, 0);
+      }
+
+      moveCamera(target, position, transition);
+      setActiveView(view);
+    },
+    [moveCamera, size, graph.nodes],
+  );
+
+  useEffect(() => {
+    autoOrbitRef.current = autoOrbit;
+  }, [autoOrbit]);
+
   useEffect(() => {
     const api = fgRef.current;
     if (!api) return;
@@ -405,6 +465,22 @@ export function NeuralLabGraph() {
     const animate = () => {
       requestAnimationFrame(animate);
       controls.update();
+
+      if (autoOrbitRef.current && activeView === "lattice") {
+        const now = performance.now();
+        if (now - lastInteractionRef.current > 2500) {
+          const camera = api.camera() as THREE.PerspectiveCamera;
+          const target = controls.target;
+          const offset = new THREE.Vector3().subVectors(camera.position, target);
+          const axis = new THREE.Vector3(0.22, 0.95, 0.12).normalize();
+          const angle = 0.00015;
+          offset.applyAxisAngle(axis, angle);
+          camera.up.applyAxisAngle(axis, angle);
+          camera.position.copy(target).add(offset);
+          camera.lookAt(target);
+        }
+      }
+
       composer.render();
     };
     animate();
