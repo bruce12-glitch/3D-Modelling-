@@ -582,6 +582,25 @@ const hudValueStyle = {
   fontFamily: "monospace",
 };
 
+const viewButtonActiveStyle = {
+  background: "rgba(34, 211, 238, 0.2)",
+  color: "rgb(207 250 254)",
+  border: "1px solid rgba(34, 211, 238, 0.3)",
+  boxShadow: "0 0 12px -2px rgba(34, 211, 238, 0.5)",
+};
+
+const viewButtonInactiveStyle = {
+  background: "rgba(255, 255, 255, 0.05)",
+  color: "rgb(203 213 225)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+};
+
+const viewButtonHoverStyle = {
+  background: "rgba(255, 255, 255, 0.1)",
+  color: "rgb(241 245 249)",
+};
+
+
 
 
 
