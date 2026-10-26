@@ -1296,6 +1296,15 @@ const GAP_3 = "0.75rem";
 const GAP_4 = "1rem";
 const GAP_6 = "1.5rem";
 const GAP_8 = "2rem";
+
+const ORDER_FIRST = "-9999";
+const ORDER_LAST = "9999";
+const ORDER_0 = "0";
+const ORDER_1 = "1";
+const ORDER_2 = "2";
+const ORDER_3 = "3";
+const ORDER_4 = "4";
+const ORDER_5 = "5";
 ;
 ;
 ;
