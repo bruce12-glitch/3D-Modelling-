@@ -1060,6 +1060,12 @@ const STOP_50 = "50%";
 const STOP_75 = "75%";
 const STOP_90 = "90%";
 const STOP_100 = "100%";
+
+const BG_SIZE_AUTO = "auto";
+const BG_SIZE_COVER = "cover";
+const BG_SIZE_CONTAIN = "contain";
+const BG_SIZE_FULL = "100% 100%";
+const BG_SIZE_50 = "50% 50%";
 ;
 ;
 ;
