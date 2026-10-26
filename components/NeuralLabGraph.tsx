@@ -822,7 +822,11 @@ const ARIA_LABELS = {
   nodeSelect: (id: string) => `Select node ${id}`,
   closeInspector: "Close node inspector",
   reload: "Reload the topology",
-} as const;
+} as const
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const REDUCED_MOTION_TRANSITION_MULTIPLIER = 0.1;
+;
 ;
 ;
 ;
