@@ -373,6 +373,10 @@ const GLOW_OPACITY = 0.35;
 const GLOW_BLENDING = THREE.AdditiveBlending;
 const RING_OPACITY = 0.8;
 const RING_BLENDING = THREE.AdditiveBlending;
+const LABEL_FONT_SIZE = 28;
+const LABEL_FONT_FAMILY = "'JetBrains Mono', monospace";
+const LABEL_FILL_STYLE = "#22d3ee";
+const LABEL_OPACITY = 0.9;
 
 ;
 
