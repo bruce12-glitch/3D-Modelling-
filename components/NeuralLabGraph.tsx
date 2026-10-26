@@ -849,6 +849,13 @@ const BREAKPOINT_2XL = 1536;
 const CONTAINER_SM = 400;
 const CONTAINER_MD = 600;
 const CONTAINER_LG = 800;
+
+const Z_INDEX_CANVAS = 0;
+const Z_INDEX_VIGNETTE = 10;
+const Z_INDEX_SCANLINES = 10;
+const Z_INDEX_HUD = 20;
+const Z_INDEX_INSPECTOR = 30;
+const Z_INDEX_OVERLAY = 50;
 ;
 ;
 ;
