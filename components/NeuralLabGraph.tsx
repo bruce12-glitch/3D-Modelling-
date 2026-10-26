@@ -1156,6 +1156,12 @@ const POINTER_VISIBLE = "visible";
 const POINTER_VISIBLE_FILL = "visibleFill";
 const POINTER_VISIBLE_STROKE = "visibleStroke";
 const POINTER_VISIBLE_PAINTED = "visiblePainted";
+
+const USER_SELECT_AUTO = "auto";
+const USER_SELECT_NONE = "none";
+const USER_SELECT_TEXT = "text";
+const USER_SELECT_CONTAIN = "contain";
+const USER_SELECT_ALL = "all";
 ;
 ;
 ;
