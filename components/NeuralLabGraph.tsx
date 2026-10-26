@@ -1342,6 +1342,16 @@ const OUTLINE_OFFSET_0 = "0";
 const OUTLINE_OFFSET_1 = "1px";
 const OUTLINE_OFFSET_2 = "2px";
 const OUTLINE_OFFSET_4 = "4px";
+
+const RING_0 = "0";
+const RING_1 = "1px";
+const RING_2 = "2px";
+const RING_4 = "4px";
+const RING_8 = "8px";
+const RING_INSET = "inset";
+const RING_OFFSET_0 = "0";
+const RING_OFFSET_1 = "1px";
+const RING_OFFSET_2 = "2px";
 ;
 ;
 ;
