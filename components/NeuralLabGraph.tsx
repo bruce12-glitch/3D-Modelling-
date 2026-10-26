@@ -1076,6 +1076,13 @@ const BG_POS_TOP_LEFT = "top left";
 const BG_POS_TOP_RIGHT = "top right";
 const BG_POS_BOTTOM_LEFT = "bottom left";
 const BG_POS_BOTTOM_RIGHT = "bottom right";
+
+const BG_REPEAT = "repeat";
+const BG_REPEAT_X = "repeat-x";
+const BG_REPEAT_Y = "repeat-y";
+const BG_NO_REPEAT = "no-repeat";
+const BG_REPEAT_ROUND = "round";
+const BG_REPEAT_SPACE = "space";
 ;
 ;
 ;
