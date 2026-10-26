@@ -1199,6 +1199,16 @@ const OVERFLOW_CLIP = "clip";
 const VISIBILITY_VISIBLE = "visible";
 const VISIBILITY_HIDDEN = "hidden";
 const VISIBILITY_COLLAPSE = "collapse";
+
+const DISPLAY_BLOCK = "block";
+const DISPLAY_INLINE = "inline";
+const DISPLAY_INLINE_BLOCK = "inline-block";
+const DISPLAY_FLEX = "flex";
+const DISPLAY_INLINE_FLEX = "inline-flex";
+const DISPLAY_GRID = "grid";
+const DISPLAY_INLINE_GRID = "inline-grid";
+const DISPLAY_CONTENTS = "contents";
+const DISPLAY_NONE = "none";
 ;
 ;
 ;
