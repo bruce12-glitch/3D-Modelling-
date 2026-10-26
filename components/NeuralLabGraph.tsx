@@ -1443,6 +1443,10 @@ const UNICODE_BIDI_ISOLATE = "isolate";
 const UNICODE_BIDI_BIDI_OVERRIDE = "bidi-override";
 const UNICODE_BIDI_ISOLATE_OVERRIDE = "isolate-override";
 const UNICODE_BIDI_PLAINTEXT = "plaintext";
+
+const TEXT_ORIENTATION_MIXED = "mixed";
+const TEXT_ORIENTATION_UPRIGHT = "upright";
+const TEXT_ORIENTATION_SIDEWAYS = "sideways";
 ;
 ;
 ;
