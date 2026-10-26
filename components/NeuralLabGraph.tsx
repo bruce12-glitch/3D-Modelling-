@@ -442,6 +442,7 @@ function ViewButton({
   const cameraControlsRef = useRef<TrackballControls | null>(null);
   const assetsRef = useRef<LabAssets | null>(null);
   const materialMapRef = useRef<Map<string, NodeVisual>>(new Map());
+  const ringRef = useRef<THREE.Sprite | null>(null);
 
   const graph = useMemo(() => generateLabTopology(), []);
 
@@ -470,6 +471,42 @@ function ViewButton({
 
   const activeFocusId = hoveredId ?? selectedId;
   const focusNode = activeFocusId ? nodeById.get(activeFocusId) : undefined;
+
+  useEffect(() => {
+    const api = fgRef.current;
+    if (!api || !selectedId) {
+      if (ringRef.current) {
+        ringRef.current.visible = false;
+      }
+      return;
+    }
+
+    const scene = api.scene();
+    const node = nodeById.get(selectedId);
+    if (!node || !assetsRef.current) return;
+
+    if (!ringRef.current) {
+      const ringMaterial = new THREE.SpriteMaterial({
+        map: assetsRef.current.ringTexture,
+        color: new THREE.Color(0x22d3ee),
+        transparent: true,
+        opacity: 0.8,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true,
+      });
+      ringRef.current = new THREE.Sprite(ringMaterial);
+      scene.add(ringRef.current);
+    }
+
+    const visual = materialMapRef.current.get(selectedId);
+    if (visual && ringRef.current) {
+      ringRef.current.visible = true;
+      ringRef.current.position.copy(visual.mesh.position);
+      ringRef.current.scale.setScalar(node.radius * 3.5);
+      ringRef.current.material.color.copy(visual.baseColor);
+    }
+  }, [selectedId, nodeById]);
 
   useEffect(() => {
     const element = stageRef.current;
