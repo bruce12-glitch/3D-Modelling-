@@ -752,6 +752,11 @@ const FXAA_ENABLED = true;
 const SSAO_ENABLED = false;
 const DOF_ENABLED = false;
 const MOTION_BLUR_ENABLED = false;
+
+const RENDER_TARGET_FORMAT = THREE.RGBAFormat;
+const RENDER_TARGET_TYPE = THREE.FloatType;
+const RENDER_TARGET_MIN_FILTER = THREE.LinearFilter;
+const RENDER_TARGET_MAG_FILTER = THREE.LinearFilter;
 ;
 ;
 ;
