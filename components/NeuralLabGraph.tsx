@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState, useMemo, useCallback } from "react"
 import dynamic from "next/dynamic";
 import * as THREE from "three";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 
 const ForceGraph3D = dynamic(
   () => import("react-force-graph-3d").then((mod) => mod.default),
@@ -351,6 +353,74 @@ export function NeuralLabGraph() {
     setGraphApi(instance);
   }, []);
 
+  useEffect(() => {
+    const api = fgRef.current;
+    if (!api) return;
+
+    const renderer = api.renderer();
+    const scene = api.scene();
+    const camera = api.camera() as THREE.PerspectiveCamera;
+
+    if (!assetsRef.current) {
+      assetsRef.current = createLabAssets();
+    }
+    const assets = assetsRef.current;
+
+    const controls = new TrackballControls(camera, renderer.domElement);
+    controls.rotateSpeed = 3.5;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+    controls.noZoom = false;
+    controls.noPan = false;
+    controls.staticMoving = false;
+    controls.dynamicDampingFactor = 0.15;
+    controls.minDistance = 30;
+    controls.maxDistance = 2000;
+    cameraControlsRef.current = controls;
+
+    const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
+    for (const node of graph.nodes) {
+      const visual = createNodeVisual(node, assets);
+      materialMapRef.current.set(node.id, visual);
+      scene.add(visual.mesh);
+      const glowSprite = new THREE.Sprite(visual.glowMaterial);
+      glowSprite.scale.setScalar(node.radius * 2.8);
+      glowSprite.position.copy(visual.mesh.position);
+      visual.mesh.add(glowSprite);
+    }
+
+    const composer = new THREE.EffectComposer(renderer);
+    const renderPass = new THREE.RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      controls.update();
+      composer.render();
+    };
+    animate();
+
+    setSceneReady(true);
+
+    return () => {
+      controls.dispose();
+      composer.dispose();
+      for (const visual of materialMapRef.current.values()) {
+        visual.mesh.material.dispose();
+        visual.glowMaterial.dispose();
+        visual.cage?.material.dispose();
+        scene.remove(visual.mesh);
+      }
+      materialMapRef.current.clear();
+      for (const geometry of Object.values(assets.geometries)) {
+        geometry.dispose();
+      }
+      assets.glowTexture.dispose();
+      assets.ringTexture.dispose();
+      assetsRef.current = null;
+    };
+  }, [graph, size]);
+
   if (webglState !== "ready" || size.width === 0) {
     return (
       <div ref={stageRef} className="graph-stage absolute inset-0 bg-black" />
@@ -368,6 +438,11 @@ export function NeuralLabGraph() {
         nodeId="id"
         nodeVal="radius"
         nodeThreeObject={(node) => {
+          const visual = materialMapRef.current.get(node.id);
+          if (visual) {
+            visual.mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
+            return visual.mesh;
+          }
           const mesh = new THREE.Mesh(
             new THREE.SphereGeometry(node.radius, 16, 16),
             new THREE.MeshBasicMaterial({ color: 0x22d3ee })
