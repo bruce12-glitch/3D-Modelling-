@@ -705,6 +705,14 @@ const inspectorNeighborHoverStyle = {
   background: "rgba(255, 255, 255, 0.05)",
 };
 
+const NEIGHBOR_ZONE_COLORS = {
+  core: "rgb(253 230 138)",
+  memory: "rgb(254 240 138)",
+  relay: "rgb(221 214 254)",
+  gateway: "rgb(253 224 71)",
+} as const;
+
+
 
 
 
