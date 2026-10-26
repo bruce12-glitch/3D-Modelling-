@@ -1228,6 +1228,12 @@ const CLEAR_RIGHT = "right";
 const CLEAR_BOTH = "both";
 const CLEAR_INLINE_START = "inline-start";
 const CLEAR_INLINE_END = "inline-end";
+
+const OBJECT_FIT_FILL = "fill";
+const OBJECT_FIT_CONTAIN = "contain";
+const OBJECT_FIT_COVER = "cover";
+const OBJECT_FIT_NONE = "none";
+const OBJECT_FIT_SCALE_DOWN = "scale-down";
 ;
 ;
 ;
