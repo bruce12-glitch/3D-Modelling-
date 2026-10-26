@@ -733,7 +733,16 @@ const PARTICLE_PALETTES = {
   relay: "#a78bfa",
   gateway: "#fbbf24",
   highway: "#22d3ee",
+} as const
+
+const ARROW_PALETTES = {
+  highway: "rgba(34, 211, 238, 0.8)",
+  core: "rgba(0, 0, 0, 0)",
+  memory: "rgba(0, 0, 0, 0)",
+  relay: "rgba(0, 0, 0, 0)",
+  gateway: "rgba(0, 0, 0, 0)",
 } as const;
+;
 ;
 ;
 
