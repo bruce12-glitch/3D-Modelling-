@@ -200,12 +200,40 @@ function generateLabTopology(): GraphData {
 }
 
 function createLabAssets(): LabAssets {
+  const glowCanvas = document.createElement("canvas");
+  glowCanvas.width = 64;
+  glowCanvas.height = 64;
+  const glowCtx = glowCanvas.getContext("2d")!;
+  const glowGradient = glowCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  glowGradient.addColorStop(0, "rgba(34,211,238,1)");
+  glowGradient.addColorStop(0.5, "rgba(34,211,238,0.4)");
+  glowGradient.addColorStop(1, "rgba(34,211,238,0)");
+  glowCtx.fillStyle = glowGradient;
+  glowCtx.fillRect(0, 0, 64, 64);
+  const glowTexture = new THREE.CanvasTexture(glowCanvas);
+  glowTexture.needsUpdate = true;
+
+  const ringCanvas = document.createElement("canvas");
+  ringCanvas.width = 64;
+  ringCanvas.height = 64;
+  const ringCtx = ringCanvas.getContext("2d")!;
+  ringCtx.beginPath();
+  ringCtx.arc(32, 32, 28, 0, Math.PI * 2);
+  ringCtx.strokeStyle = "rgba(34,211,238,0.6)";
+  ringCtx.lineWidth = 4;
+  ringCtx.stroke();
+  const ringTexture = new THREE.CanvasTexture(ringCanvas);
+  ringTexture.needsUpdate = true;
+
   return {
     geometries: {
-      sphere: new THREE.SphereGeometry(1, 16, 16),
+      sphere: new THREE.SphereGeometry(1, 24, 24),
+      octahedron: new THREE.OctahedronGeometry(1, 0),
+      tetrahedron: new THREE.TetrahedronGeometry(1, 0),
+      icosahedron: new THREE.IcosahedronGeometry(1, 0),
     },
-    glowTexture: new THREE.Texture(),
-    ringTexture: new THREE.Texture(),
+    glowTexture,
+    ringTexture,
   };
 }
 
