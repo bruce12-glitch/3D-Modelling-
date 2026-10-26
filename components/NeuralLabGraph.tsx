@@ -834,6 +834,11 @@ const TOUCH_PAN_SENSITIVITY = 1.0;
 
 const ORIENTATION_DEBOUNCE_MS = 200;
 const ORIENTATION_CAMERA_ADJUST = true;
+
+const SAFE_AREA_TOP = "env(safe-area-inset-top)";
+const SAFE_AREA_BOTTOM = "env(safe-area-inset-bottom)";
+const SAFE_AREA_LEFT = "env(safe-area-inset-left)";
+const SAFE_AREA_RIGHT = "env(safe-area-inset-right)";
 ;
 ;
 ;
