@@ -957,6 +957,18 @@ const BLEND_HARD_LIGHT = "hard-light";
 const BLEND_SOFT_LIGHT = "soft-light";
 const BLEND_DIFFERENCE = "difference";
 const BLEND_EXCLUSION = "exclusion";
+
+const FILTER_NONE = "none";
+const FILTER_BLUR_SM = "blur(2px)";
+const FILTER_BLUR_MD = "blur(4px)";
+const FILTER_BLUR_LG = "blur(8px)";
+const FILTER_BRIGHTNESS = "brightness(1.1)";
+const FILTER_CONTRAST = "contrast(1.2)";
+const FILTER_SATURATE = "saturate(1.5)";
+const FILTER_HUE_ROTATE = "hue-rotate(180deg)";
+const FILTER_INVERT = "invert(1)";
+const FILTER_GRAYSCALE = "grayscale(1)";
+const FILTER_SEPIA = "sepia(1)";
 ;
 ;
 ;
