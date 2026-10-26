@@ -266,7 +266,12 @@ const ZONE_COLORS = {
   memory: "#fbbf24",
   relay: "#a78bfa",
   gateway: "#fbbf24",
-} as const;
+} as const
+
+const LINK_KINDS = [
+  "core", "memory", "relay", "gateway", "highway",
+] as const;
+;
 
 , ${b}, ${alpha})`;
 }
