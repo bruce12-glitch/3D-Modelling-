@@ -1052,6 +1052,14 @@ const GRADIENT_180DEG = "180deg";
 const GRADIENT_225DEG = "225deg";
 const GRADIENT_270DEG = "270deg";
 const GRADIENT_315DEG = "315deg";
+
+const STOP_0 = "0%";
+const STOP_10 = "10%";
+const STOP_25 = "25%";
+const STOP_50 = "50%";
+const STOP_75 = "75%";
+const STOP_90 = "90%";
+const STOP_100 = "100%";
 ;
 ;
 ;
