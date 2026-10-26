@@ -1413,6 +1413,11 @@ const TEXT_TRANSFORM_FULL_SIZE_KANA = "full-size-kana";
 const TEXT_OVERFLOW_CLIP = "clip";
 const TEXT_OVERFLOW_ELLIPSIS = "ellipsis";
 const TEXT_OVERFLOW_STRING = "string";
+
+const TEXT_WRAP_NORMAL = "normal";
+const TEXT_WRAP_NONE = "none";
+const TEXT_WRAP_BALANCE = "balance";
+const TEXT_WRAP_PRETTY = "pretty";
 ;
 ;
 ;
