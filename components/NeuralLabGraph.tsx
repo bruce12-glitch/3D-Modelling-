@@ -381,6 +381,9 @@ const STAR_COLOR_CYAN = [0.2, 0.8, 1.0] as const;
 const STAR_COLOR_AMBER = [1.0, 0.75, 0.2] as const;
 const STAR_COLOR_WHITE = [1.0, 1.0, 1.0] as const;
 const STAR_COLOR_DISTRIBUTION = [0.4, 0.3, 0.3] as const;
+const BG_GRADIENT_1 = "radial-gradient(ellipse at 50% 44%, rgba(6,182,212,0.11), transparent 44%)";
+const BG_GRADIENT_2 = "radial-gradient(ellipse at 78% 18%, rgba(245,158,11,0.05), transparent 34%)";
+const VIGNETTE_GRADIENT = "radial-gradient(circle at 50% 50%, transparent 30%, rgba(3,5,8,0.45) 100%)";
 
 ;
 
