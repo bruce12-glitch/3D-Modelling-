@@ -1087,6 +1087,11 @@ const BG_REPEAT_SPACE = "space";
 const BG_ATTACH_SCROLL = "scroll";
 const BG_ATTACH_FIXED = "fixed";
 const BG_ATTACH_LOCAL = "local";
+
+const BG_CLIP_BORDER = "border-box";
+const BG_CLIP_PADDING = "padding-box";
+const BG_CLIP_CONTENT = "content-box";
+const BG_CLIP_TEXT = "text";
 ;
 ;
 ;
