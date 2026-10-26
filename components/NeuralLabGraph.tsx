@@ -559,39 +559,161 @@ export function NeuralLabGraph() {
     );
   }
 
+  const coreCount = graph.nodes.filter((n) => n.zone === "core").length;
+  const memoryCount = graph.nodes.filter((n) => n.zone === "memory").length;
+  const relayCount = graph.nodes.filter((n) => n.zone === "relay").length;
+  const gatewayCount = graph.nodes.filter((n) => n.zone === "gateway").length;
+  const linkCount = graph.links.length;
+
   return (
-    <div ref={stageRef} className="graph-stage absolute inset-0 bg-black">
-      <ForceGraph3D
-        ref={handleGraphRef}
-        graphData={graph}
-        width={size.width}
-        height={size.height}
-        backgroundColor="#030508"
-        nodeId="id"
-        nodeVal="radius"
-        nodeThreeObject={(node) => {
-          const visual = materialMapRef.current.get(node.id);
-          if (visual) {
-            visual.mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
-            return visual.mesh;
-          }
-          const mesh = new THREE.Mesh(
-            new THREE.SphereGeometry(node.radius, 16, 16),
-            new THREE.MeshBasicMaterial({ color: 0x22d3ee })
-          );
-          mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
-          return mesh;
-        }}
-        linkColor="color"
-        linkWidth="width"
-        linkCurvature="curvature"
-        enableNodeDrag
-        d3AlphaDecay={0.021}
-        d3VelocityDecay={0.28}
-      />
-      <div className="pointer-events-none absolute inset-0 z-10">
+    <div ref={stageRef} className="relative h-screen w-full overflow-hidden bg-lab-void">
+      <div className="graph-stage absolute inset-0 z-0 bg-lab-void">
+        <ForceGraph3D
+          ref={handleGraphRef}
+          graphData={graph}
+          width={size.width}
+          height={size.height}
+          backgroundColor="#030508"
+          nodeId="id"
+          nodeVal="radius"
+          nodeThreeObject={(node) => {
+            const visual = materialMapRef.current.get(node.id);
+            if (visual) {
+              visual.mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
+              return visual.mesh;
+            }
+            const mesh = new THREE.Mesh(
+              new THREE.SphereGeometry(node.radius, 16, 16),
+              new THREE.MeshBasicMaterial({ color: 0x22d3ee })
+            );
+            mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
+            return mesh;
+          }}
+          linkColor="color"
+          linkWidth="width"
+          linkCurvature="curvature"
+          enableNodeDrag
+          d3AlphaDecay={0.021}
+          d3VelocityDecay={0.28}
+        />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10"
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJub2lzZSIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQiIGhlaWdodD0iNCI+PHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMDAuMDMiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjbm9pc2UpIi8+PC9zdmc+')] opacity-20" />
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJub2lzZSIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQiIGhlaWdodD0iNCI+PHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMDAuMDMiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjbm9pc2UpIi8+PC9zdmc+')",
+          }}
+        />
+      </div>
+
+      <div
+        className="pointer-events-auto absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-6"
+        style={{
+          paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
+        }}
+      >
+        <header className="flex items-start justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <BrandMark />
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-200/60">
+                  Neural Systems
+                </span>
+                <span className="hidden h-px w-5 bg-cyan-300/20 sm:block" />
+                <span className="hidden font-mono text-[8px] uppercase tracking-[0.2em] text-slate-500 sm:inline">
+                  Seed 42
+                </span>
+              </div>
+              <h1 className="mt-1 truncate text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-50 sm:text-[14px] sm:tracking-[0.18em]">
+                AGI Lab <span className="text-cyan-300/40">/</span> Cognition Mesh
+              </h1>
+              <p className="mt-1 hidden text-[9px] leading-relaxed text-slate-500 md:block">
+                540-node deterministic topology · 7 agentic memory satellites · 720° trackball
+              </p>
+            </div>
+          </div>
+
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+            <div className="flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-2 py-1 backdrop-blur-sm">
+              <ViewButton
+                id="lattice"
+                label="Lattice"
+                active={activeView === "lattice"}
+                onClick={() => applyView("lattice")}
+              />
+              <ViewButton
+                id="core"
+                label="Core"
+                active={activeView === "core"}
+                onClick={() => applyView("core")}
+              />
+              <ViewButton
+                id="memory"
+                label="Memory"
+                active={activeView === "memory"}
+                onClick={() => applyView("memory")}
+              />
+              <ViewButton
+                id="immersion"
+                label="Immersion"
+                active={activeView === "immersion"}
+                onClick={() => applyView("immersion")}
+              />
+            </div>
+
+            <div className="hidden items-center gap-3 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 backdrop-blur-sm sm:flex">
+              <HudStat label="Nodes" value={graph.nodes.length} />
+              <span className="h-4 w-px bg-white/10 mx-1" />
+              <HudStat label="Edges" value={linkCount} />
+              <span className="h-4 w-px bg-white/10 mx-1" />
+              <HudStat label="FPS" value="60" />
+            </div>
+          </div>
+        </header>
+
+        <footer className="flex items-end justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="rounded-full border border-amber-300/20 bg-amber-400/5 px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.15em] text-amber-200">
+              {activeView.toUpperCase()} VIEW
+            </div>
+            <div className="rounded-full border border-cyan-300/20 bg-cyan-400/5 px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.15em] text-cyan-200">
+              {autoOrbit ? "AUTO ORBIT" : "MANUAL"}
+            </div>
+            <button
+              type="button"
+              onClick={() => setAutoOrbit(!autoOrbit)}
+              className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.15em] text-slate-300 hover:text-slate-100 hover:border-white/20 transition"
+            >
+              {autoOrbit ? "PAUSE" : "RESUME"}
+            </button>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-end gap-3 text-right">
+            <div className="rounded-xl border border-white/5 bg-black/30 px-3 py-2 backdrop-blur-sm">
+              <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">CORE NODES</p>
+              <p className="text-xl font-mono text-cyan-200">{coreCount}</p>
+            </div>
+            <div className="rounded-xl border border-white/5 bg-black/30 px-3 py-2 backdrop-blur-sm">
+              <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">MEMORY</p>
+              <p className="text-xl font-mono text-amber-200">{memoryCount}</p>
+            </div>
+            <div className="rounded-xl border border-white/5 bg-black/30 px-3 py-2 backdrop-blur-sm">
+              <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">RELAYS</p>
+              <p className="text-xl font-mono text-violet-200">{relayCount}</p>
+            </div>
+            <div className="rounded-xl border border-white/5 bg-black/30 px-3 py-2 backdrop-blur-sm">
+              <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">GATEWAYS</p>
+              <p className="text-xl font-mono text-yellow-200">{gatewayCount}</p>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
