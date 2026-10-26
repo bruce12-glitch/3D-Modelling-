@@ -1108,6 +1108,12 @@ const CLIP_ELLIPSE = "ellipse(50% 50% at 50% 50%)";
 const CLIP_INSET = "inset(0)";
 const CLIP_POLYGON_TRIANGLE = "polygon(50% 0%, 0% 100%, 100% 100%)";
 const CLIP_POLYGON_DIAMOND = "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)";
+
+const SHAPE_NONE = "none";
+const SHAPE_CIRCLE = "circle()";
+const SHAPE_ELLIPSE = "ellipse()";
+const SHAPE_INSET = "inset(0)";
+const SHAPE_POLYGON = "polygon()";
 ;
 ;
 ;
