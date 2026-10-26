@@ -1391,6 +1391,17 @@ const SCROLLBAR_TRACK_BG = "rgba(0, 0, 0, 0.1)";
 const SCROLLBAR_THUMB_BG = "rgba(34, 211, 238, 0.5)";
 const SCROLLBAR_THUMB_HOVER = "rgba(34, 211, 238, 0.7)";
 const SCROLLBAR_CORNER_BG = "transparent";
+
+const TEXT_DECORATION_NONE = "none";
+const TEXT_DECORATION_UNDERLINE = "underline";
+const TEXT_DECORATION_OVERLINE = "overline";
+const TEXT_DECORATION_LINE_THROUGH = "line-through";
+const TEXT_DECORATION_BLINK = "blink";
+const TEXT_DECORATION_SOLID = "solid";
+const TEXT_DECORATION_DOUBLE = "double";
+const TEXT_DECORATION_DOTTED = "dotted";
+const TEXT_DECORATION_DASHED = "dashed";
+const TEXT_DECORATION_WAVY = "wavy";
 ;
 ;
 ;
