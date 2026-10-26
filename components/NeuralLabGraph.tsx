@@ -969,6 +969,12 @@ const FILTER_HUE_ROTATE = "hue-rotate(180deg)";
 const FILTER_INVERT = "invert(1)";
 const FILTER_GRAYSCALE = "grayscale(1)";
 const FILTER_SEPIA = "sepia(1)";
+
+const BACKDROP_BLUR_NONE = "none";
+const BACKDROP_BLUR_SM = "blur(4px)";
+const BACKDROP_BLUR_MD = "blur(12px)";
+const BACKDROP_BLUR_LG = "blur(16px)";
+const BACKDROP_BLUR_XL = "blur(24px)";
 ;
 ;
 ;
