@@ -878,6 +878,15 @@ const LETTER_SPACING_NORMAL = "0";
 const LETTER_SPACING_WIDE = "0.02em";
 const LETTER_SPACING_WIDER = "0.1em";
 const LETTER_SPACING_WIDEST = "0.2em";
+
+const BORDER_RADIUS_NONE = "0";
+const BORDER_RADIUS_SM = "0.25rem";
+const BORDER_RADIUS_MD = "0.375rem";
+const BORDER_RADIUS_LG = "0.5rem";
+const BORDER_RADIUS_XL = "0.75rem";
+const BORDER_RADIUS_2XL = "1rem";
+const BORDER_RADIUS_3XL = "1.5rem";
+const BORDER_RADIUS_FULL = "9999px";
 ;
 ;
 ;
