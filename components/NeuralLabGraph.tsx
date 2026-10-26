@@ -1436,6 +1436,13 @@ const WRITING_MODE_SIDEWAYS_LR = "sideways-lr";
 
 const DIRECTION_LTR = "ltr";
 const DIRECTION_RTL = "rtl";
+
+const UNICODE_BIDI_NORMAL = "normal";
+const UNICODE_BIDI_EMBED = "embed";
+const UNICODE_BIDI_ISOLATE = "isolate";
+const UNICODE_BIDI_BIDI_OVERRIDE = "bidi-override";
+const UNICODE_BIDI_ISOLATE_OVERRIDE = "isolate-override";
+const UNICODE_BIDI_PLAINTEXT = "plaintext";
 ;
 ;
 ;
