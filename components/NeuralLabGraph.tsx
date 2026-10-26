@@ -466,6 +466,7 @@ function ViewButton({
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [contextLost, setContextLost] = useState(false);
   const focusIdRef = useRef<string | null>(null);
   const adjacencyRef = useRef(adjacency);
 
@@ -701,6 +702,17 @@ function ViewButton({
     controls.minDistance = 30;
     controls.maxDistance = 2000;
     cameraControlsRef.current = controls;
+
+    const canvas = renderer.domElement;
+    const [contextLost, setContextLost] = useState(false);
+
+    const onContextLost = (event: Event) => {
+      event.preventDefault();
+      setContextLost(true);
+    };
+    const onContextRestored = () => setContextLost(false);
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
 
     const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
     for (const node of graph.nodes) {
