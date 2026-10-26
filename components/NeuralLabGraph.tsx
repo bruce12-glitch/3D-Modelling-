@@ -804,6 +804,10 @@ const CLUSTER_NAMES = [
   "REFERENCE", "ASSOCIATIVE", "TEMPORAL",
 ] as const;
 
+const VIEW_TRANSITION_EASING = "cubic-bezier(0.4, 0, 0.2, 1)";
+const VIEW_TRANSITION_DURATION = 1500;
+
+
 
 
 }
