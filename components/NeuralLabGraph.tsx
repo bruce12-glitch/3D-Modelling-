@@ -1000,6 +1000,14 @@ const PERSPECTIVE_NONE = "none";
 const PERSPECTIVE_500 = "perspective(500px)";
 const PERSPECTIVE_1000 = "perspective(1000px)";
 const PERSPECTIVE_2000 = "perspective(2000px)";
+
+const ANIM_DELAY_0 = "0ms";
+const ANIM_DELAY_50 = "50ms";
+const ANIM_DELAY_100 = "100ms";
+const ANIM_DELAY_200 = "200ms";
+const ANIM_DELAY_300 = "300ms";
+const ANIM_DELAY_500 = "500ms";
+const ANIM_DELAY_1000 = "1000ms";
 ;
 ;
 ;
