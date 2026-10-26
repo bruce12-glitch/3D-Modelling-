@@ -1377,6 +1377,12 @@ const SELECTION_TEXT = "#ffffff";
 const FILE_BUTTON_BG = "rgba(34, 211, 238, 0.1)";
 const FILE_BUTTON_BORDER = "1px solid rgba(34, 211, 238, 0.3)";
 const FILE_BUTTON_TEXT = "#22d3ee";
+
+const APPEARANCE_NONE = "none";
+const APPEARANCE_AUTO = "auto";
+const APPEARANCE_BUTTON = "button";
+const APPEARANCE_TEXTFIELD = "textfield";
+const APPEARANCE_MENULIST = "menulist";
 ;
 ;
 ;
