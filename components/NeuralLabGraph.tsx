@@ -924,6 +924,13 @@ const SPACING_12 = "3rem";
 const SPACING_16 = "4rem";
 const SPACING_20 = "5rem";
 const SPACING_24 = "6rem";
+
+const CONTAINER_MAX_SM = "640px";
+const CONTAINER_MAX_MD = "768px";
+const CONTAINER_MAX_LG = "1024px";
+const CONTAINER_MAX_XL = "1280px";
+const CONTAINER_MAX_2XL = "1536px";
+const CONTAINER_MAX_FULL = "100%";
 ;
 ;
 ;
