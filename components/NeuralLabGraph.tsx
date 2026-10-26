@@ -868,6 +868,10 @@ const FONT_SIZE_LG = "1rem";
 const FONT_SIZE_XL = "1.125rem";
 const FONT_SIZE_2XL = "1.25rem";
 const FONT_SIZE_3XL = "1.5rem";
+
+const LINE_HEIGHT_TIGHT = 1.1;
+const LINE_HEIGHT_NORMAL = 1.5;
+const LINE_HEIGHT_RELAXED = 1.625;
 ;
 ;
 ;
