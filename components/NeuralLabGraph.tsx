@@ -1083,6 +1083,10 @@ const BG_REPEAT_Y = "repeat-y";
 const BG_NO_REPEAT = "no-repeat";
 const BG_REPEAT_ROUND = "round";
 const BG_REPEAT_SPACE = "space";
+
+const BG_ATTACH_SCROLL = "scroll";
+const BG_ATTACH_FIXED = "fixed";
+const BG_ATTACH_LOCAL = "local";
 ;
 ;
 ;
