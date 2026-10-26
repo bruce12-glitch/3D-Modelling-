@@ -784,6 +784,11 @@ function createNodeVisual(node: LabNode, assets: LabAssets): NodeVisual {
   });
 
   return { mesh, glowMaterial, baseColor, baseEmissive };
+
+const fpsGoodStyle = { color: "rgb(34 197 94)" };
+const fpsWarnStyle = { color: "rgb(251 191 36)" };
+const fpsBadStyle = { color: "rgb(239 68 68)" };
+
 }
 
 function BrandMark() {
