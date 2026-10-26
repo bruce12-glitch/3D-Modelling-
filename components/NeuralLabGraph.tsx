@@ -1447,6 +1447,14 @@ const UNICODE_BIDI_PLAINTEXT = "plaintext";
 const TEXT_ORIENTATION_MIXED = "mixed";
 const TEXT_ORIENTATION_UPRIGHT = "upright";
 const TEXT_ORIENTATION_SIDEWAYS = "sideways";
+
+const FONT_VARIANT_NORMAL = "normal";
+const FONT_VARIANT_SMALL_CAPS = "small-caps";
+const FONT_VARIANT_ALL_SMALL_CAPS = "all-small-caps";
+const FONT_VARIANT_PETITE_CAPS = "petite-caps";
+const FONT_VARIANT_ALL_PETITE_CAPS = "all-petite-caps";
+const FONT_VARIANT_UNICASE = "unicase";
+const FONT_VARIANT_TITLING_CAPS = "titling-caps";
 ;
 ;
 ;
