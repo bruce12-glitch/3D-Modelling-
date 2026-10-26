@@ -551,6 +551,19 @@ const vignetteStyle = {
   mixBlendMode: "multiply",
 };
 
+const glassPanelStyle = {
+  backdropFilter: "blur(12px)",
+  background: "rgba(15, 18, 24, 0.7)",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+};
+
+const glassPanelStrongStyle = {
+  backdropFilter: "blur(20px)",
+  background: "rgba(10, 12, 16, 0.85)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+};
+
+
 
 
 
