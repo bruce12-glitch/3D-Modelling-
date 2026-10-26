@@ -1366,6 +1366,10 @@ const ACCENT_AUTO = "auto";
 const ACCENT_CYAN = "#22d3ee";
 const ACCENT_AMBER = "#fbbf24";
 const ACCENT_VIOLET = "#a78bfa";
+
+const CARET_AUTO = "auto";
+const CARET_CYAN = "#22d3ee";
+const CARET_AMBER = "#fbbf24";
 ;
 ;
 ;
