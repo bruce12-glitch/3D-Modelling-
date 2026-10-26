@@ -665,6 +665,47 @@ const inspectorCloseButtonStyle = {
   color: "rgb(148 163 184)",
 };
 
+const inspectorFieldStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  fontSize: "0.875rem",
+  marginBottom: "0.5rem",
+};
+
+const inspectorLabelStyle = {
+  color: "rgb(148 163 184)",
+};
+
+const inspectorValueStyle = {
+  fontFamily: "monospace",
+  color: "rgb(248 250 252)",
+};
+
+const inspectorSectionStyle = {
+  paddingTop: "0.5rem",
+  borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+  marginTop: "0.5rem",
+};
+
+const inspectorSectionTitleStyle = {
+  fontSize: "0.625rem",
+  color: "rgb(148 163 184)",
+  marginBottom: "0.25rem",
+};
+
+const inspectorNeighborItemStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  fontSize: "0.6875rem",
+  padding: "0.25rem 0.5rem",
+  borderRadius: "0.375rem",
+};
+
+const inspectorNeighborHoverStyle = {
+  background: "rgba(255, 255, 255, 0.05)",
+};
+
+
 
 
 
