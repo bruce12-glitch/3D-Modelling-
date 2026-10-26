@@ -1312,6 +1312,12 @@ const FLEX_BASIS_FULL = "100%";
 const FLEX_BASIS_HALF = "50%";
 const FLEX_BASIS_THIRD = "33.333%";
 const FLEX_BASIS_QUARTER = "25%";
+
+const BORDER_WIDTH_0 = "0";
+const BORDER_WIDTH_1 = "1px";
+const BORDER_WIDTH_2 = "2px";
+const BORDER_WIDTH_4 = "4px";
+const BORDER_WIDTH_8 = "8px";
 ;
 ;
 ;
