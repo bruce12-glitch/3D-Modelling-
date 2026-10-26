@@ -377,6 +377,10 @@ const LABEL_FONT_SIZE = 28;
 const LABEL_FONT_FAMILY = "'JetBrains Mono', monospace";
 const LABEL_FILL_STYLE = "#22d3ee";
 const LABEL_OPACITY = 0.9;
+const STAR_COLOR_CYAN = [0.2, 0.8, 1.0] as const;
+const STAR_COLOR_AMBER = [1.0, 0.75, 0.2] as const;
+const STAR_COLOR_WHITE = [1.0, 1.0, 1.0] as const;
+const STAR_COLOR_DISTRIBUTION = [0.4, 0.3, 0.3] as const;
 
 ;
 
