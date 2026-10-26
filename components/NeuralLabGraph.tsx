@@ -856,6 +856,10 @@ const Z_INDEX_SCANLINES = 10;
 const Z_INDEX_HUD = 20;
 const Z_INDEX_INSPECTOR = 30;
 const Z_INDEX_OVERLAY = 50;
+
+const FONT_MONO = "'JetBrains Mono', 'Fira Code', monospace";
+const FONT_SANS = "'Inter', 'IBM Plex Sans', system-ui, sans-serif";
+const FONT_DISPLAY = "'Space Grotesk', 'Inter', sans-serif";
 ;
 ;
 ;
