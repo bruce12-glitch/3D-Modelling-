@@ -563,6 +563,26 @@ const glassPanelStrongStyle = {
   border: "1px solid rgba(255, 255, 255, 0.08)",
 };
 
+const hudPanelStyle = {
+  borderRadius: "0.75rem",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+  background: "rgba(0, 0, 0, 0.2)",
+  padding: "0.5rem",
+};
+
+const hudStatStyle = {
+  fontSize: "0.6875rem",
+  color: "rgb(148 163 184)",
+};
+
+const hudValueStyle = {
+  marginTop: "0.25rem",
+  fontSize: "0.75rem",
+  color: "rgb(241 245 249)",
+  fontFamily: "monospace",
+};
+
+
 
 
 
