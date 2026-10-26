@@ -1215,6 +1215,12 @@ const POSITION_RELATIVE = "relative";
 const POSITION_ABSOLUTE = "absolute";
 const POSITION_FIXED = "fixed";
 const POSITION_STICKY = "sticky";
+
+const FLOAT_NONE = "none";
+const FLOAT_LEFT = "left";
+const FLOAT_RIGHT = "right";
+const FLOAT_INLINE_START = "inline-start";
+const FLOAT_INLINE_END = "inline-end";
 ;
 ;
 ;
