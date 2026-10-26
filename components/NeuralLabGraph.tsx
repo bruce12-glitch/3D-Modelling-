@@ -1034,6 +1034,15 @@ const GRADIENT_RADIAL = "radial-gradient";
 const GRADIENT_CONIC = "conic-gradient";
 const GRADIENT_REPEATING_LINEAR = "repeating-linear-gradient";
 const GRADIENT_REPEATING_RADIAL = "repeating-radial-gradient";
+
+const GRADIENT_TO_TOP = "to top";
+const GRADIENT_TO_RIGHT = "to right";
+const GRADIENT_TO_BOTTOM = "to bottom";
+const GRADIENT_TO_LEFT = "to left";
+const GRADIENT_TO_TOP_RIGHT = "to top right";
+const GRADIENT_TO_BOTTOM_RIGHT = "to bottom right";
+const GRADIENT_TO_BOTTOM_LEFT = "to bottom left";
+const GRADIENT_TO_TOP_LEFT = "to top left";
 ;
 ;
 ;
