@@ -254,7 +254,13 @@ function rgba(hex: string, alpha: number): string {
   const r = parseInt(clean.slice(0, 2), 16);
   const g = parseInt(clean.slice(2, 4), 16);
   const b = parseInt(clean.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  return `rgba(${r}, ${g}
+
+const CLUSTER_COLORS = [
+  "#fbbf24", "#f59e0b", "#f97316", "#ef4444",
+  "#ec4899", "#a855f7", "#8b5cf6",
+] as const;
+, ${b}, ${alpha})`;
 }
 ;
 }
