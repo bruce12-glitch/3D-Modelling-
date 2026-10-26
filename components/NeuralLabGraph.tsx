@@ -1016,6 +1016,12 @@ const ANIM_DURATION_500 = "500ms";
 const ANIM_DURATION_700 = "700ms";
 const ANIM_DURATION_1000 = "1000ms";
 const ANIM_DURATION_2000 = "2000ms";
+
+const KF_0 = "0%";
+const KF_25 = "25%";
+const KF_50 = "50%";
+const KF_75 = "75%";
+const KF_100 = "100%";
 ;
 ;
 ;
