@@ -826,6 +826,11 @@ const ARIA_LABELS = {
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const REDUCED_MOTION_TRANSITION_MULTIPLIER = 0.1;
+
+const TOUCH_DRAG_THRESHOLD = 10;
+const TOUCH_ZOOM_SENSITIVITY = 1.5;
+const TOUCH_ROTATE_SENSITIVITY = 1.2;
+const TOUCH_PAN_SENSITIVITY = 1.0;
 ;
 ;
 ;
