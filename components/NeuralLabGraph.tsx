@@ -1418,6 +1418,10 @@ const TEXT_WRAP_NORMAL = "normal";
 const TEXT_WRAP_NONE = "none";
 const TEXT_WRAP_BALANCE = "balance";
 const TEXT_WRAP_PRETTY = "pretty";
+
+const HYPHENS_NONE = "none";
+const HYPHENS_MANUAL = "manual";
+const HYPHENS_AUTO = "auto";
 ;
 ;
 ;
