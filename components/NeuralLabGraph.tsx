@@ -614,6 +614,28 @@ const statusBadgeInactiveStyle = {
   color: "rgb(165 243 252)",
 };
 
+const statCardStyle = {
+  borderRadius: "0.75rem",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+  background: "rgba(0, 0, 0, 0.3)",
+  backdropFilter: "blur(8px)",
+  padding: "0.75rem",
+};
+
+const statLabelStyle = {
+  fontSize: "0.5625rem",
+  fontFamily: "monospace",
+  textTransform: "uppercase",
+  letterSpacing: "0.15em",
+  color: "rgb(148 163 184)",
+};
+
+const statValueStyle = {
+  fontSize: "1.25rem",
+  fontFamily: "monospace",
+};
+
+
 
 
 
