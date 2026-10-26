@@ -1138,6 +1138,17 @@ const SCROLL_INSTANT = "instant";
 const OVERSCROLL_AUTO = "auto";
 const OVERSCROLL_CONTAIN = "contain";
 const OVERSCROLL_NONE = "none";
+
+const TOUCH_AUTO = "auto";
+const TOUCH_NONE = "none";
+const TOUCH_PAN_X = "pan-x";
+const TOUCH_PAN_Y = "pan-y";
+const TOUCH_PAN_LEFT = "pan-left";
+const TOUCH_PAN_RIGHT = "pan-right";
+const TOUCH_PAN_UP = "pan-up";
+const TOUCH_PAN_DOWN = "pan-down";
+const TOUCH_PINCH_ZOOM = "pinch-zoom";
+const TOUCH_MANIPULATION = "manipulation";
 ;
 ;
 ;
