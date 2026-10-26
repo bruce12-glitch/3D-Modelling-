@@ -1101,6 +1101,13 @@ const MASK_NONE = "none";
 const MASK_MODE_ALPHA = "alpha";
 const MASK_MODE_LUMINANCE = "luminance";
 const MASK_MODE_MATCH_SOURCE = "match-source";
+
+const CLIP_NONE = "none";
+const CLIP_CIRCLE = "circle(50% at 50% 50%)";
+const CLIP_ELLIPSE = "ellipse(50% 50% at 50% 50%)";
+const CLIP_INSET = "inset(0)";
+const CLIP_POLYGON_TRIANGLE = "polygon(50% 0%, 0% 100%, 100% 100%)";
+const CLIP_POLYGON_DIAMOND = "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)";
 ;
 ;
 ;
