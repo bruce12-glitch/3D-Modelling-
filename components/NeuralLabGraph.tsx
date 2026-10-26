@@ -1130,6 +1130,10 @@ const SCROLL_SNAP_Y = "y";
 const SCROLL_SNAP_BOTH = "both";
 const SCROLL_SNAP_MANDATORY = "mandatory";
 const SCROLL_SNAP_PROXIMITY = "proximity";
+
+const SCROLL_AUTO = "auto";
+const SCROLL_SMOOTH = "smooth";
+const SCROLL_INSTANT = "instant";
 ;
 ;
 ;
