@@ -546,6 +546,12 @@ const scanlinesKeyframes = `
 }
 `;
 
+const vignetteStyle = {
+  background: "radial-gradient(circle at 50% 50%, transparent 30%, rgba(3,5,8,0.45) 100%)",
+  mixBlendMode: "multiply",
+};
+
+
 
 
 
