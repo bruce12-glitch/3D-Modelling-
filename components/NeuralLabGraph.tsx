@@ -747,6 +747,11 @@ const NOISE_TEXTURE_SIZE = 256;
 const NOISE_OCTAVES = 4;
 const NOISE_PERSISTENCE = 0.5;
 const NOISE_SCALE = 0.01;
+
+const FXAA_ENABLED = true;
+const SSAO_ENABLED = false;
+const DOF_ENABLED = false;
+const MOTION_BLUR_ENABLED = false;
 ;
 ;
 ;
