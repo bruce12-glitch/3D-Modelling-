@@ -349,6 +349,9 @@ type LinkKind = (typeof LINK_KINDS)[number];
 const TARGET_FPS = 60;
 const FPS_SAMPLE_INTERVAL = 1000;
 const PERFORMANCE_WARN_THRESHOLD = 30;
+const RESIZE_DEBOUNCE_MS = 100;
+const MIN_CANVAS_WIDTH = 1;
+const MIN_CANVAS_HEIGHT = 1;
 
 ;
 
