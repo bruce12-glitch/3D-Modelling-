@@ -984,6 +984,12 @@ const TRANSFORM_SCALE_90 = "scale(0.9)";
 const TRANSFORM_SCALE_95 = "scale(0.95)";
 const TRANSFORM_SCALE_105 = "scale(1.05)";
 const TRANSFORM_SCALE_110 = "scale(1.1)";
+
+const ROTATE_45 = "rotate(45deg)";
+const ROTATE_90 = "rotate(90deg)";
+const ROTATE_180 = "rotate(180deg)";
+const ROTATE_270 = "rotate(270deg)";
+const ROTATE_360 = "rotate(360deg)";
 ;
 ;
 ;
