@@ -1092,6 +1092,10 @@ const BG_CLIP_BORDER = "border-box";
 const BG_CLIP_PADDING = "padding-box";
 const BG_CLIP_CONTENT = "content-box";
 const BG_CLIP_TEXT = "text";
+
+const BG_ORIGIN_BORDER = "border-box";
+const BG_ORIGIN_PADDING = "padding-box";
+const BG_ORIGIN_CONTENT = "content-box";
 ;
 ;
 ;
