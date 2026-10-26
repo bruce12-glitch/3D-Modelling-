@@ -247,6 +247,67 @@ function mulberry32(seed: number) {
   };
 }
 
+interface NodeVisual {
+  mesh: THREE.Mesh;
+  glowMaterial: THREE.SpriteMaterial;
+  cage?: THREE.Mesh;
+  baseColor: THREE.Color;
+  baseEmissive: THREE.Color;
+}
+
+function getZoneColor(zone: LabNode["zone"], clusterId: number): THREE.Color {
+  switch (zone) {
+    case "core":
+      return new THREE.Color(0xffd700);
+    case "memory":
+      const hues = [0.08, 0.15, 0.22, 0.3, 0.45, 0.55, 0.65];
+      return new THREE.Color().setHSL(hues[clusterId - 1] ?? 0.1, 0.85, 0.55);
+    case "relay":
+      return new THREE.Color(0xa78bfa);
+    case "gateway":
+      return new THREE.Color(0xfbbf24);
+    default:
+      return new THREE.Color(0x22d3ee);
+  }
+}
+
+function createNodeVisual(node: LabNode, assets: LabAssets): NodeVisual {
+  const baseColor = getZoneColor(node.zone, node.clusterId);
+  const baseEmissive = baseColor.clone().multiplyScalar(0.3);
+
+  const geometry = assets.geometries.sphere;
+  const material = new THREE.MeshPhysicalMaterial({
+    color: baseColor,
+    emissive: baseEmissive,
+    emissiveIntensity: 0.4,
+    metalness: 0.2,
+    roughness: 0.3,
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.2,
+    transparent: true,
+    opacity: 0.95,
+    transmission: 0.1,
+    thickness: 0.5,
+  });
+
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.scale.setScalar(node.radius);
+  mesh.position.set(node.x ?? 0, node.y ?? 0, node.z ?? 0);
+  mesh.renderOrder = 1;
+
+  const glowMaterial = new THREE.SpriteMaterial({
+    map: assets.glowTexture,
+    color: baseColor,
+    transparent: true,
+    opacity: 0.35,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true,
+  });
+
+  return { mesh, glowMaterial, baseColor, baseEmissive };
+}
+
 export function NeuralLabGraph() {
   const [webglState, setWebglState] = useState<"checking" | "ready" | "unsupported">("checking");
   const [size, setSize] = useState({ width: 0, height: 0 });
