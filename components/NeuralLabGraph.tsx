@@ -1247,6 +1247,14 @@ const ASPECT_VIDEO = "16 / 9";
 const ASPECT_PHOTO = "4 / 3";
 const ASPECT_CLASSIC = "3 / 2";
 const ASPECT_CINEMA = "21 / 9";
+
+const GRID_AUTO = "auto";
+const GRID_1FR = "1fr";
+const GRID_2FR = "repeat(2, 1fr)";
+const GRID_3FR = "repeat(3, 1fr)";
+const GRID_4FR = "repeat(4, 1fr)";
+const GRID_AUTO_FIT = "repeat(auto-fit, minmax(200px, 1fr))";
+const GRID_AUTO_FILL = "repeat(auto-fill, minmax(200px, 1fr))";
 ;
 ;
 ;
