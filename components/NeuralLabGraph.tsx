@@ -1255,6 +1255,18 @@ const GRID_3FR = "repeat(3, 1fr)";
 const GRID_4FR = "repeat(4, 1fr)";
 const GRID_AUTO_FIT = "repeat(auto-fit, minmax(200px, 1fr))";
 const GRID_AUTO_FILL = "repeat(auto-fill, minmax(200px, 1fr))";
+
+const FLEX_1 = "1 1 0%";
+const FLEX_AUTO = "1 1 auto";
+const FLEX_INITIAL = "0 1 auto";
+const FLEX_NONE = "0 0 auto";
+const FLEX_ROW = "row";
+const FLEX_COL = "column";
+const FLEX_ROW_REVERSE = "row-reverse";
+const FLEX_COL_REVERSE = "column-reverse";
+const FLEX_WRAP = "wrap";
+const FLEX_NOWRAP = "nowrap";
+const FLEX_WRAP_REVERSE = "wrap-reverse";
 ;
 ;
 ;
