@@ -1028,6 +1028,12 @@ const COLOR_FORMAT_RGB = "rgb";
 const COLOR_FORMAT_RGBA = "rgba";
 const COLOR_FORMAT_HSL = "hsl";
 const COLOR_FORMAT_HSLA = "hsla";
+
+const GRADIENT_LINEAR = "linear-gradient";
+const GRADIENT_RADIAL = "radial-gradient";
+const GRADIENT_CONIC = "conic-gradient";
+const GRADIENT_REPEATING_LINEAR = "repeating-linear-gradient";
+const GRADIENT_REPEATING_RADIAL = "repeating-radial-gradient";
 ;
 ;
 ;
