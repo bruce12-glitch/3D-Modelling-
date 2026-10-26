@@ -887,6 +887,14 @@ const BORDER_RADIUS_XL = "0.75rem";
 const BORDER_RADIUS_2XL = "1rem";
 const BORDER_RADIUS_3XL = "1.5rem";
 const BORDER_RADIUS_FULL = "9999px";
+
+const SHADOW_SM = "0 1px 2px 0 rgb(0 0 0 / 0.05)";
+const SHADOW_MD = "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
+const SHADOW_LG = "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)";
+const SHADOW_XL = "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)";
+const SHADOW_GLOW_SM = "0 0 10px -2px rgb(34 211 238 / 0.5)";
+const SHADOW_GLOW_MD = "0 0 20px -4px rgb(34 211 238 / 0.5)";
+const SHADOW_GLOW_LG = "0 0 30px -6px rgb(34 211 238 / 0.5)";
 ;
 ;
 ;
