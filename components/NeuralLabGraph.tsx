@@ -260,6 +260,14 @@ const CLUSTER_COLORS = [
   "#fbbf24", "#f59e0b", "#f97316", "#ef4444",
   "#ec4899", "#a855f7", "#8b5cf6",
 ] as const;
+
+const ZONE_COLORS = {
+  core: "#ffd700",
+  memory: "#fbbf24",
+  relay: "#a78bfa",
+  gateway: "#fbbf24",
+} as const;
+
 , ${b}, ${alpha})`;
 }
 ;
