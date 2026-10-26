@@ -49,3 +49,8 @@ const CONTAIN_SIZE = \size\;
 const CONTAIN_LAYOUT = \layout\;
 const CONTAIN_STYLE = \style\;
 const CONTAIN_PAINT = \paint\;
+// Content visibility constants
+const CONTENT_VIS_AUTO = \
+auto\;
+const CONTENT_VIS_HIDDEN = \hidden\;
+const CONTENT_VIS_VISIBLE = \visible\;
