@@ -1008,6 +1008,14 @@ const ANIM_DELAY_200 = "200ms";
 const ANIM_DELAY_300 = "300ms";
 const ANIM_DELAY_500 = "500ms";
 const ANIM_DELAY_1000 = "1000ms";
+
+const ANIM_DURATION_100 = "100ms";
+const ANIM_DURATION_200 = "200ms";
+const ANIM_DURATION_300 = "300ms";
+const ANIM_DURATION_500 = "500ms";
+const ANIM_DURATION_700 = "700ms";
+const ANIM_DURATION_1000 = "1000ms";
+const ANIM_DURATION_2000 = "2000ms";
 ;
 ;
 ;
