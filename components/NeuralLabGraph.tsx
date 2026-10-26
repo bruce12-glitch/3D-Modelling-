@@ -42,52 +42,80 @@ interface LabAssets {
 }
 
 function generateLabTopology(): GraphData {
+  const rng = mulberry32(42);
   const nodes: LabNode[] = [];
   const links: LabLink[] = [];
 
-  // Core nodes (180)
+  // Core nodes (180) - Zone A
   for (let i = 0; i < 180; i++) {
+    const angle = rng() * Math.PI * 2;
+    const radius = 10 + rng() * 75;
     nodes.push({
       id: `core-${i}`,
       zone: "core",
       clusterId: 0,
-      radius: 1.2 + Math.random() * 0.8,
+      radius: 1.2 + rng() * 0.8,
       label: `Core ${i}`,
+      x: Math.cos(angle) * radius,
+      y: (rng() - 0.5) * 20,
+      z: Math.sin(angle) * radius,
     });
   }
 
-  // Memory satellites (7 * 45 = 315)
+  // Memory satellites (7 * 45 = 315) - Zone B
   for (let s = 0; s < 7; s++) {
+    const phi = Math.acos(1 - 2 * (s + 0.5) / 7);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * s;
+    const anchorR = 280 + rng() * 130;
+    const anchorX = anchorR * Math.sin(phi) * Math.cos(theta);
+    const anchorY = anchorR * Math.cos(phi);
+    const anchorZ = anchorR * Math.sin(phi) * Math.sin(theta);
+
     for (let i = 0; i < 45; i++) {
+      const angle = rng() * Math.PI * 2;
+      const r = 5 + rng() * 25;
       nodes.push({
         id: `mem-${s}-${i}`,
         zone: "memory",
         clusterId: s + 1,
-        radius: 0.8 + Math.random() * 0.6,
+        radius: 0.8 + rng() * 0.6,
         label: `Mem ${s}-${i}`,
+        x: anchorX + Math.cos(angle) * r,
+        y: anchorY + (rng() - 0.5) * 10,
+        z: anchorZ + Math.sin(angle) * r,
       });
     }
   }
 
-  // Relays (42)
+  // Relays (42) - Zone C
   for (let i = 0; i < 42; i++) {
+    const angle = rng() * Math.PI * 2;
+    const radius = 100 + rng() * 180;
     nodes.push({
       id: `relay-${i}`,
       zone: "relay",
       clusterId: 8,
       radius: 1.0,
       label: `Relay ${i}`,
+      x: Math.cos(angle) * radius,
+      y: (rng() - 0.5) * 40,
+      z: Math.sin(angle) * radius,
     });
   }
 
-  // Gateways (3)
+  // Gateways (3) - Zone C
   for (let i = 0; i < 3; i++) {
+    const angle = (i / 3) * Math.PI * 2;
+    const radius = 320;
     nodes.push({
       id: `gateway-${i}`,
       zone: "gateway",
       clusterId: 9,
       radius: 2.0,
       label: `Gateway ${i}`,
+      x: Math.cos(angle) * radius,
+      y: 0,
+      z: Math.sin(angle) * radius,
     });
   }
 
