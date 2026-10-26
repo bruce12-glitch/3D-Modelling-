@@ -311,6 +311,52 @@ function createNodeVisual(node: LabNode, assets: LabAssets): NodeVisual {
   return { mesh, glowMaterial, baseColor, baseEmissive };
 }
 
+function BrandMark() {
+  return (
+    <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/20 bg-cyan-400/5 shadow-[0_0_24px_-8px_rgba(34,211,238,0.6)]">
+      <div className="absolute h-7 w-7 rounded-full border border-dashed border-cyan-200/20 animate-spin" />
+      <div className="absolute h-4 w-4 rounded-full border border-amber-200/25 animate-spin-reverse" />
+      <div className="absolute h-1.5 w-1.5 rounded-full bg-cyan-200 shadow-[0_0_10px_2px_rgba(103,232,249,0.7)]" />
+      <div className="absolute h-0.75 w-0.75 rounded-full bg-amber-200 shadow-[0_0_6px_1px_rgba(251,191,36,0.7)] translate-x-3 -translate-y-3" />
+    </div>
+  );
+}
+
+function HudStat({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="rounded-xl border border-white/5 bg-black/20 px-2 py-2">
+      <span className="text-[7px] text-slate-500">{label}</span>
+      <p className="mt-1 truncate text-[11px] text-slate-100 font-mono">{value}</p>
+    </div>
+  );
+}
+
+function ViewButton({
+  id,
+  label,
+  active,
+  onClick,
+}: {
+  id: string;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`relative rounded-full px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.1em] transition-all duration-300 ${
+        active
+          ? "bg-cyan-400/20 text-cyan-100 border border-cyan-300/30 shadow-[0_0_12px_-2px_rgba(34,211,238,0.5)]"
+          : "bg-white/5 text-slate-300 hover:bg-white/10 hover:text-slate-100 border border-white/10"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 export function NeuralLabGraph() {
   const [webglState, setWebglState] = useState<"checking" | "ready" | "unsupported">("checking");
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -543,6 +589,10 @@ export function NeuralLabGraph() {
         d3AlphaDecay={0.021}
         d3VelocityDecay={0.28}
       />
+      <div className="pointer-events-none absolute inset-0 z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJub2lzZSIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQiIGhlaWdodD0iNCI+PHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMDAuMDMiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjbm9pc2UpIi8+PC9zdmc+')] opacity-20" />
+      </div>
     </div>
   );
 }
