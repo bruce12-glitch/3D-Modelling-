@@ -1373,6 +1373,10 @@ const CARET_AMBER = "#fbbf24";
 
 const SELECTION_BG = "rgba(34, 211, 238, 0.3)";
 const SELECTION_TEXT = "#ffffff";
+
+const FILE_BUTTON_BG = "rgba(34, 211, 238, 0.1)";
+const FILE_BUTTON_BORDER = "1px solid rgba(34, 211, 238, 0.3)";
+const FILE_BUTTON_TEXT = "#22d3ee";
 ;
 ;
 ;
