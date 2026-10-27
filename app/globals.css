@@ -320,3 +320,48 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ── 3D hover tooltip (rendered by react-force-graph-3d) ── */
+.scene-tooltip {
+  z-index: 30;
+}
+
+.lab-tip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 9rem;
+  padding: 0.55rem 0.8rem 0.55rem 1.7rem;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, rgba(9, 14, 23, 0.92), rgba(3, 5, 8, 0.86));
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: #f1f5f9;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.9);
+}
+
+.lab-tip b {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.lab-tip i {
+  color: rgba(148, 163, 184, 0.9);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lab-tip-dot {
+  position: absolute;
+  left: 0.7rem;
+  top: 0.8rem;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+}
