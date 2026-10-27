@@ -231,9 +231,9 @@ export default function NeuralLabGraph() {
       }
       const bloom = new UnrealBloomPass(
         new THREE.Vector2(sizeRef.current.width, sizeRef.current.height),
-        0.6,
-        0.6,
-        0.3,
+        0.55,
+        0.5,
+        0.45,
       );
       const output = new OutputPass();
       composer.addPass(bloom);
