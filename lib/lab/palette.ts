@@ -45,5 +45,5 @@ export const LINK_COLORS = {
   core: { base: "rgba(56, 220, 245, 0.55)", dim: "rgba(34, 211, 238, 0.05)", lit: "rgba(165, 243, 252, 0.95)" },
   memory: { base: "rgba(251, 191, 36, 0.42)", dim: "rgba(251, 191, 36, 0.05)", lit: "rgba(254, 240, 138, 0.95)" },
   relay: { base: "rgba(103, 232, 249, 0.55)", dim: "rgba(103, 232, 249, 0.07)", lit: "rgba(207, 250, 254, 1)" },
-  highway: { base: "rgba(253, 224, 71, 0.5)", dim: "rgba(253, 224, 71, 0.10)", lit: "rgba(255, 251, 220, 1)" },
+  highway: { base: "rgba(253, 224, 71, 0.5)", dim: "rgba(253, 224, 71, 0.10)", lit: "rgba(255, 246, 200, 0.8)" },
 } as const;

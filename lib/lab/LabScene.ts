@@ -260,7 +260,7 @@ export class LabScene {
         new THREE.LineBasicMaterial({
           color: 0xfff1b8,
           transparent: true,
-          opacity: 0.8,
+          opacity: 0.5,
           blending: THREE.AdditiveBlending,
           depthWrite: false,
         }),
@@ -334,7 +334,7 @@ export class LabScene {
 
     if (this.selectedId && this.selection.visible) {
       const node = this.graph.nodes[this.indexById.get(this.selectedId) ?? 0];
-      const base = node.radius * 4 + 9;
+      const base = node.radius * 2.4 + 7;
       this.selection.scale.setScalar(base * (1 + 0.07 * Math.sin(this.time * 3.2)));
       this.selection.material.rotation = this.time * 0.5;
     }
@@ -365,7 +365,7 @@ export class LabScene {
       material = new THREE.MeshStandardMaterial({
         color,
         emissive: color,
-        emissiveIntensity: node.hub ? 1.7 : node.zone === "core" ? 0.85 : 1.05,
+        emissiveIntensity: node.zone === "gateway" ? 0.55 : node.hub ? 1.4 : node.zone === "core" ? 0.85 : 1.05,
         roughness: 0.38,
         metalness: 0.15,
       });

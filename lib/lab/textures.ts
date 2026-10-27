@@ -37,7 +37,7 @@ export function createRingTexture(size = 256): THREE.CanvasTexture {
   const c = size / 2;
   const glow = ctx.createRadialGradient(c, c, c * 0.62, c, c, c * 0.96);
   glow.addColorStop(0, "rgba(255,255,255,0)");
-  glow.addColorStop(0.7, "rgba(255,255,255,0.22)");
+  glow.addColorStop(0.7, "rgba(255,255,255,0.07)");
   glow.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, size, size);
