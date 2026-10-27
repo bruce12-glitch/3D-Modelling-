@@ -72,7 +72,15 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
     const key = a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`;
     if (seen.has(key)) return;
     seen.add(key);
-    links.push({ source: a.id, target: b.id, kind, width, curvature, particles });
+    links.push({
+      source: a.id,
+      target: b.id,
+      kind,
+      width,
+      curvature,
+      rotation: (links.length * GOLDEN_ANGLE) % (Math.PI * 2),
+      particles,
+    });
   };
 
   // ── Reasoning core: concentric Fibonacci shells -> a dense, brain-like lattice ──

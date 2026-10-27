@@ -25,6 +25,8 @@ export interface LabLink {
   kind: LinkKind;
   width: number;
   curvature: number;
+  /** Radians; varies the plane each curved link bends in. */
+  rotation: number;
   /** Directional particles that visualise inference traffic. */
   particles: number;
 }
