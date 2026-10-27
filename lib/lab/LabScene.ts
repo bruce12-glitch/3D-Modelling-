@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { CLUSTER_COLORS, CLUSTER_NAMES, nodeColorHex } from "./palette";
 import { mulberry32 } from "./random";
-import { BELT_RADIUS, CORE_RADIUS } from "./topology";
+import { BELT_RADIUS, CORE_RADIUS, discNormalOf } from "./topology";
 import { createGlowTexture, createLabelTexture, createRingTexture } from "./textures";
 import type { GraphData, LabNode } from "./types";
 
@@ -20,10 +20,10 @@ const HALO_VERT = /* glsl */ `
     float focus = max(aBoost, 0.0);
     float dim = max(-aBoost, 0.0);
     float size = aSize * pulse * (1.0 + focus * 0.9) * (1.0 - dim * 0.45);
-    gl_PointSize = clamp(size * uScale / max(-mv.z, 1.0), 2.0, 420.0);
+    gl_PointSize = clamp(size * uScale / max(-mv.z, 1.0), 1.4, 420.0);
     gl_Position = projectionMatrix * mv;
     vColor = aColor;
-    vAlpha = (0.34 + focus * 0.5) * pulse * (1.0 - dim * 0.8);
+    vAlpha = (0.28 + focus * 0.55) * pulse * (1.0 - dim * 0.8);
   }
 `;
 
@@ -99,6 +99,7 @@ export class LabScene {
   private readonly stars: THREE.Points;
   private readonly containment: THREE.LineSegments;
   private readonly cages: THREE.Object3D[] = [];
+  private readonly labels: { sprite: THREE.Sprite; aspect: number }[] = [];
   private readonly selection: THREE.Sprite;
   private readonly size = new THREE.Vector2();
   private selectedId: string | null = null;
@@ -129,7 +130,7 @@ export class LabScene {
       positions.set([n.x, n.y, n.z], i * 3);
       tmp.set(nodeColorHex(n.zone, n.clusterId));
       colors.set([tmp.r, tmp.g, tmp.b], i * 3);
-      sizes[i] = n.radius * (n.hub ? 7.5 : 5.2);
+      sizes[i] = n.radius * (n.hub ? 6 : n.zone === "core" ? 2.7 : 4.2);
       phases[i] = rng() * Math.PI * 2;
     });
     const haloGeometry = new THREE.BufferGeometry();
@@ -308,6 +309,12 @@ export class LabScene {
       cage.rotation.x += dt * 0.35;
     }
 
+    // Keep labels a readable, roughly constant on-screen size at any distance.
+    for (const { sprite, aspect } of this.labels) {
+      const height = THREE.MathUtils.clamp(camera.position.distanceTo(sprite.position) * 0.028, 5, 26);
+      sprite.scale.set(height * aspect, height, 1);
+    }
+
     // Ease focus boosts and node scales toward their targets.
     const k = 1 - Math.exp(-dt * 10);
     let changed = false;
@@ -343,6 +350,7 @@ export class LabScene {
     this.materials.clear();
     this.groups.clear();
     this.cages.length = 0;
+    this.labels.length = 0;
   }
 
   // ───────────────────────────── internals ─────────────────────────────
@@ -386,14 +394,14 @@ export class LabScene {
   }
 
   private buildNebulae() {
-    this.addGlowSprite(new THREE.Vector3(0, 0, 0), "#ffb43c", 420, 0.16);
-    this.addGlowSprite(new THREE.Vector3(0, 0, 0), "#22d3ee", 620, 0.07);
+    this.addGlowSprite(new THREE.Vector3(0, 0, 0), "#ffb43c", 380, 0.06);
+    this.addGlowSprite(new THREE.Vector3(0, 0, 0), "#22d3ee", 620, 0.035);
     for (const head of this.heads()) {
       this.addGlowSprite(
         new THREE.Vector3(head.x, head.y, head.z),
         CLUSTER_COLORS[(head.clusterId - 1) % CLUSTER_COLORS.length],
         230,
-        0.13,
+        0.09,
       );
     }
   }
@@ -428,7 +436,7 @@ export class LabScene {
     const forward = new THREE.Vector3(0, 0, 1);
     for (const head of this.heads()) {
       const anchor = new THREE.Vector3(head.x, head.y, head.z);
-      const normal = anchor.clone().normalize();
+      const normal = new THREE.Vector3(...discNormalOf(head));
       const color = CLUSTER_COLORS[(head.clusterId - 1) % CLUSTER_COLORS.length];
       for (const [radius, opacity] of [[24, 0.2], [46, 0.12]] as const) {
         const ring = this.circle(radius, color, opacity);
@@ -452,8 +460,8 @@ export class LabScene {
         blending: THREE.AdditiveBlending,
       });
       const sprite = new THREE.Sprite(material);
-      const height = 24;
-      sprite.scale.set(height * aspect, height, 1);
+      sprite.scale.set(24 * aspect, 24, 1);
+      this.labels.push({ sprite, aspect });
       sprite.position.set(head.x, head.y + 62, head.z);
       sprite.renderOrder = 5;
       this.root.add(sprite);

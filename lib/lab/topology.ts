@@ -36,6 +36,16 @@ const cross = (a: Vec, b: Vec): Vec => [
 ];
 const pos = (n: LabNode): Vec => [n.x, n.y, n.z];
 
+/**
+ * Orientation of a memory satellite's spiral disc. Blends the outward radial
+ * with the hero-camera direction so discs read face-on from the default view
+ * instead of collapsing into edge-on slivers.
+ */
+export function discNormalOf(p: { x: number; y: number; z: number }): Vec {
+  const radial = norm([p.x, p.y, p.z]);
+  return norm([radial[0] * 0.55, radial[1] * 0.55 + 0.28, radial[2] * 0.55 + 0.8]);
+}
+
 function fibonacciSphere(i: number, n: number, phase: number): Vec {
   const y = 1 - (2 * (i + 0.5)) / n;
   const r = Math.sqrt(Math.max(0, 1 - y * y));
@@ -121,7 +131,7 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
     const dir = fibonacciSphere(s, SATELLITES, 0.6);
     const anchorR = 305 + rng() * 45;
     const anchor: Vec = [dir[0] * anchorR, dir[1] * anchorR * 0.8, dir[2] * anchorR];
-    const normal = norm(anchor);
+    const normal = discNormalOf({ x: anchor[0], y: anchor[1], z: anchor[2] });
     const helper: Vec = Math.abs(normal[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0];
     const u = norm(cross(normal, helper));
     const v = cross(normal, u);
@@ -239,14 +249,14 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
   // Highways: core hubs -> belt, belt -> satellites, gateways -> everything they bridge.
   const coreHubs = core.filter((n) => n.hub);
   for (const hub of coreHubs.slice(0, 9)) {
-    connect(hub, nearest(relays, hub, 1)[0], "highway", 1, 0.08, 3);
+    connect(hub, nearest(relays, hub, 1)[0], "highway", 0.6, 0.08, 3);
   }
   for (const head of heads) {
-    for (const r of nearest(relays, head, 2)) connect(head, r, "highway", 1, 0.06, 3);
+    for (const r of nearest(relays, head, 2)) connect(head, r, "highway", 0.6, 0.06, 3);
   }
   for (const g of gateways) {
-    for (const r of nearest(relays, g, 2)) connect(g, r, "highway", 1.6, 0.04, 4);
-    for (const h of nearest(heads, g, 2)) connect(g, h, "highway", 1.6, 0.05, 4);
+    for (const r of nearest(relays, g, 2)) connect(g, r, "highway", 1, 0.04, 4);
+    for (const h of nearest(heads, g, 2)) connect(g, h, "highway", 1, 0.05, 4);
   }
 
   // Degrees (drives inspector + hub emphasis).

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { discNormalOf } from "./topology";
 import type { GraphData, ViewMode } from "./types";
 
 export interface Pose {
@@ -31,7 +32,7 @@ export function presetPose(
   const position = new THREE.Vector3();
 
   if (view === "lattice") {
-    const d = aspect < 0.7 ? 1060 : aspect < 1.05 ? 900 : 780;
+    const d = aspect < 0.7 ? 1180 : aspect < 1.05 ? 1000 : 880;
     position.set(0, d * 0.14, d);
   } else if (view === "core") {
     const d = aspect < 0.8 ? 330 : 262;
@@ -41,8 +42,11 @@ export function presetPose(
     const head = heads[((satellite % heads.length) + heads.length) % heads.length];
     target.set(head.x, head.y, head.z);
     const d = aspect < 0.8 ? 210 : 175;
-    position.copy(target).addScaledVector(target.clone().normalize(), d);
-    position.y += d * 0.2;
+    // Look down the disc normal (flipped outward) so the spiral is face-on.
+    const normal = new THREE.Vector3(...discNormalOf(head));
+    if (normal.dot(target) < 0) normal.negate();
+    position.copy(target).addScaledVector(normal, d);
+    position.y += d * 0.08;
   } else {
     // Immersion: float inside the reasoning core, looking out through the lattice.
     position.set(0, 5, 46);
