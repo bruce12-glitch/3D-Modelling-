@@ -38,12 +38,14 @@ export function GraphSkeleton() {
 
 export function ContextLostBanner() {
   return (
-    <div
-      role="alert"
-      className="glass-panel hud-enter pointer-events-none absolute left-1/2 top-4 z-40 flex -translate-x-1/2 items-center gap-2 rounded-full px-4 py-2 text-xs text-amber-200"
-    >
-      <AlertTriangle className="h-4 w-4" aria-hidden="true" />
-      Graphics context lost — waiting for the browser to restore it…
+    <div className="pointer-events-none absolute left-1/2 top-4 z-40 -translate-x-1/2">
+      <div
+        role="alert"
+        className="glass-panel hud-enter flex items-center gap-2 rounded-full px-4 py-2 text-xs text-amber-200"
+      >
+        <AlertTriangle className="h-4 w-4" aria-hidden="true" />
+        Graphics context lost — waiting for the browser to restore it…
+      </div>
     </div>
   );
 }

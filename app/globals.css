@@ -324,6 +324,10 @@
 /* ── 3D hover tooltip (rendered by react-force-graph-3d) ── */
 .scene-tooltip {
   z-index: 30;
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .lab-tip {

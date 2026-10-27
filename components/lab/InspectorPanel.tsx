@@ -26,9 +26,11 @@ export function InspectorPanel({ node, neighbors, onClose, onSelect, onFocus }: 
     ["Position", `${Math.round(node.x)}, ${Math.round(node.y)}, ${Math.round(node.z)}`],
   ];
   return (
+    // Position on a wrapper: `.glass-panel` sets `position: relative` and would override `absolute`.
+    <div className="pointer-events-none absolute bottom-24 right-4 z-30 w-[min(20rem,calc(100vw-2rem))] sm:bottom-auto sm:right-6 sm:top-24">
     <aside
       aria-label="Node inspector"
-      className="glass-panel glass-panel-strong hud-enter pointer-events-auto absolute bottom-24 right-4 z-30 w-[min(20rem,calc(100vw-2rem))] rounded-3xl p-5 sm:bottom-auto sm:top-24 sm:right-6"
+      className="glass-panel glass-panel-strong hud-enter pointer-events-auto rounded-3xl p-5"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
@@ -82,5 +84,6 @@ export function InspectorPanel({ node, neighbors, onClose, onSelect, onFocus }: 
         Fly to node
       </button>
     </aside>
+    </div>
   );
 }

@@ -19,11 +19,13 @@ const HALO_VERT = /* glsl */ `
     float pulse = 0.84 + 0.16 * sin(uTime * 1.3 + aPhase);
     float focus = max(aBoost, 0.0);
     float dim = max(-aBoost, 0.0);
-    float size = aSize * pulse * (1.0 + focus * 0.9) * (1.0 - dim * 0.45);
+    float size = aSize * pulse * (1.0 + focus * 0.45) * (1.0 - dim * 0.45);
     gl_PointSize = clamp(size * uScale / max(-mv.z, 1.0), 1.4, 420.0);
     gl_Position = projectionMatrix * mv;
     vColor = aColor;
-    vAlpha = (0.28 + focus * 0.55) * pulse * (1.0 - dim * 0.8);
+    // Fade halos as the camera closes in so focused hubs never bloom into a white blob.
+    float proximity = mix(0.22, 1.0, smoothstep(30.0, 170.0, -mv.z));
+    vAlpha = (0.28 + focus * 0.4) * pulse * (1.0 - dim * 0.8) * proximity;
   }
 `;
 
