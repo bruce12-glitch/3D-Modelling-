@@ -1,6 +1,6 @@
-# 3D Modelling — AGI Lab Cognition Mesh
+# 3D Modelling — Distributed Tensor Inference Fabric
 
-An interactive 3D visualisation of a neural "cognition mesh", built with Next.js, React, Three.js and `react-force-graph-3d`.
+An interactive 3D visualisation of a illustrative LLM inference fabric, built with Next.js, React, Three.js and `react-force-graph-3d`.
 
 ### 🔗 Live demo: **https://bruce12-glitch.github.io/3D-Modelling-/**
 
@@ -10,29 +10,33 @@ An interactive 3D visualisation of a neural "cognition mesh", built with Next.js
 
 | Region | What it is | Count |
 | --- | --- | --- |
-| **Reasoning core** | Concentric Fibonacci shells wired as a k-nearest-neighbour lattice, with long-range small-world shortcuts from hub nodes | 220 nodes |
-| **Memory satellites** | Seven two-armed spiral discs (Episodic, Semantic, Procedural, Working, Reference, Associative, Temporal), each with a head node and orbital rings | 336 nodes |
-| **Relay belt** | A tilted, gently undulating closed ring between the core and satellites | 42 nodes |
-| **Gateways** | Three caged beacons that bridge the belt and satellites | 3 nodes |
+| **Attention tensor core** | Concentric Fibonacci shells wired as a k-nearest-neighbour lattice, with long-range small-world shortcuts from hub nodes | 220 nodes |
+| **MoE & KV-cache shards** | Seven two-armed spiral discs (ATTN-QKV, MOE-FFN, KV-CACHE, ROPE-EMB, SPEC-DEC, ALL-REDUCE, LOGIT-HEAD), each with a head node and orbital rings | 336 nodes |
+| **NVLink relay belt** | A tilted, gently undulating closed ring between the core and satellites | 42 nodes |
+| **Speculative token gateways** | Three caged beacons that bridge the belt and satellites | 3 nodes |
 | **Highways** | Bright inference paths joining core hubs, belt, satellites and gateways, with travelling particles | 35 links |
 
-The layout is fully **deterministic** (seeded PRNG) and **static**: there is no force-simulation drift, so every visit looks identical and loads fast.
+The layout is fully **deterministic** (seeded PRNG) with fixed base positions: there is no force-simulation drift, while a small visual breathing animation moves the node meshes. Spiral-arm links keep every shard connected to its router.
 
 ## Rendering
 
-- GPU-pulsed halo points (one draw call for every node), shaded emissive node meshes, seeded starfield, nebulae, orbit rings, crisp labels
-- Bloom + ACES tone mapping with MSAA post-processing targets
+- GPU-pulsed halo points, 1,400 GPU-driven tensor stream particles, emissive node meshes, seeded starfield, nebulae, counter-rotating core gyroscopes, shard rings and HUD labels
+- Bloom + ACES tone mapping with MSAA post-processing targets, with chromatic aberration and bloom surges during forward-pass waves
 - Focus-aware highlighting: hover or select a node and its links light up while everything else dims
-- 720° corkscrew reveal on load, then a slow diagonal orbit; any input takes control
-- WebGL-unsupported, context-lost and fatal-error states with retry; honours `prefers-reduced-motion`
+- A 4.8-second swoop reveal on load, then a slow orbit with vertical drift and pointer response; any input interrupts the reveal
+- WebGL-unsupported, context-lost and fatal-error states with retry; skips the camera reveal and auto-orbit for `prefers-reduced-motion`
+
+Throughput and P99 latency are illustrative demo values, not measured inference performance. The graph is a visual metaphor, not an inference engine.
 
 ## Controls
 
 | Input | Action |
 | --- | --- |
 | Drag / scroll / right-drag | Rotate / zoom / pan |
-| `1` `2` `3` `4` | Lattice · Core · Memory · Immersion views |
+| `1` `2` `3` `4` | Cluster · Tensor Core · KV & MoE · Immersion views |
 | `←` `→` (Memory view) | Previous / next satellite |
+| `F` / Forward Pass | Emit a wave from the selected node, or the core when nothing is selected |
+| Inspector: Emit Wave | Emit a wave from the inspected node |
 | `Space` | Pause or resume auto-orbit |
 | `R` | Reset camera |
 | `Esc` | Clear selection |
@@ -48,7 +52,7 @@ components/
 lib/lab/
   topology.ts           Deterministic graph generator
   LabScene.ts           Three.js scene layer (nodes, halos, stars, rings, labels)
-  camera.ts             View presets, 720° reveal, idle orbit
+  camera.ts             View presets, cinematic swoop reveal, idle orbit
   palette.ts · types.ts · random.ts · textures.ts
 ```
 
@@ -58,6 +62,7 @@ lib/lab/
 npm install
 npm run dev          # http://localhost:3000
 npm run typecheck
+npm test             # topology invariants across four seeds
 npm run build
 ```
 
