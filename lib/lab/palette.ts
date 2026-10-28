@@ -1,38 +1,38 @@
 import type { Zone } from "./types";
 
 export const CLUSTER_NAMES = [
-  "EPISODIC",
-  "SEMANTIC",
-  "PROCEDURAL",
-  "WORKING",
-  "REFERENCE",
-  "ASSOCIATIVE",
-  "TEMPORAL",
+  "ATTN-QKV",
+  "MOE-FFN",
+  "KV-CACHE",
+  "ROPE-EMB",
+  "SPEC-DEC",
+  "ALL-REDUCE",
+  "LOGIT-HEAD",
 ] as const;
 
-/** Warm amber -> violet sweep, one colour per memory satellite. */
+/** High-contrast electric cybernetic palette for ML compute shards. */
 export const CLUSTER_COLORS = [
-  "#fbbf24",
-  "#f59e0b",
-  "#f97316",
-  "#ef4444",
-  "#ec4899",
-  "#a855f7",
-  "#8b5cf6",
+  "#38bdf8", // Sky Cyan - Attention QKV
+  "#818cf8", // Indigo - MoE FFN
+  "#c084fc", // Purple - KV-Cache
+  "#f472b6", // Pink - RoPE Embeddings
+  "#fb923c", // Orange - Speculative Decoding
+  "#34d399", // Emerald - All-Reduce Collective
+  "#facc15", // Amber Gold - Logit Head
 ] as const;
 
 export const ZONE_COLORS: Record<Zone, string> = {
-  core: "#fcd34d",
-  memory: "#fbbf24",
-  relay: "#67e8f9",
-  gateway: "#fff7d6",
+  core: "#22d3ee",
+  memory: "#818cf8",
+  relay: "#34d399",
+  gateway: "#fbbf24",
 };
 
 export const ZONE_LABELS: Record<Zone, string> = {
-  core: "Reasoning core",
-  memory: "Agentic memory",
-  relay: "Relay belt",
-  gateway: "Gateway",
+  core: "Attention Tensor Core",
+  memory: "MoE & KV-Cache Shards",
+  relay: "NVLink All-Reduce Ring",
+  gateway: "Token Speculative Router",
 };
 
 export function nodeColorHex(zone: Zone, clusterId: number): string {
@@ -40,10 +40,26 @@ export function nodeColorHex(zone: Zone, clusterId: number): string {
   return ZONE_COLORS[zone];
 }
 
-/** Link colours are quantised per kind so the renderer only needs a handful of materials. */
+/** Quantised link colours with stronger lit states for active tensor paths. */
 export const LINK_COLORS = {
-  core: { base: "rgba(56, 220, 245, 0.55)", dim: "rgba(34, 211, 238, 0.05)", lit: "rgba(165, 243, 252, 0.95)" },
-  memory: { base: "rgba(251, 191, 36, 0.42)", dim: "rgba(251, 191, 36, 0.05)", lit: "rgba(254, 240, 138, 0.95)" },
-  relay: { base: "rgba(103, 232, 249, 0.55)", dim: "rgba(103, 232, 249, 0.07)", lit: "rgba(207, 250, 254, 1)" },
-  highway: { base: "rgba(253, 224, 71, 0.5)", dim: "rgba(253, 224, 71, 0.10)", lit: "rgba(255, 246, 200, 0.8)" },
+  core: {
+    base: "rgba(34, 211, 238, 0.38)",
+    dim: "rgba(34, 211, 238, 0.04)",
+    lit: "rgba(165, 243, 252, 0.98)",
+  },
+  memory: {
+    base: "rgba(129, 140, 248, 0.36)",
+    dim: "rgba(129, 140, 248, 0.04)",
+    lit: "rgba(224, 231, 255, 0.98)",
+  },
+  relay: {
+    base: "rgba(52, 211, 153, 0.48)",
+    dim: "rgba(52, 211, 153, 0.05)",
+    lit: "rgba(167, 243, 208, 1.0)",
+  },
+  highway: {
+    base: "rgba(251, 191, 36, 0.58)",
+    dim: "rgba(251, 191, 36, 0.07)",
+    lit: "rgba(254, 249, 195, 1.0)",
+  },
 } as const;
