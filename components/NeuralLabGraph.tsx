@@ -7,9 +7,15 @@ import type { ForceGraphMethods, ForceGraphProps } from "react-force-graph-3d";
 import * as THREE from "three";
 import type { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
-import { ContextLostBanner, FatalOverlay, GraphSkeleton, WebGLFallback } from "@/components/lab/Fallbacks";
+import {
+  ContextLostBanner,
+  FatalOverlay,
+  GraphSkeleton,
+  WebGLFallback,
+} from "@/components/lab/Fallbacks";
 import { Header, ShortcutHint, ViewSwitcher, ZoneStats } from "@/components/lab/Hud";
 import { InspectorPanel } from "@/components/lab/InspectorPanel";
 import { LabScene } from "@/lib/lab/LabScene";
@@ -22,7 +28,13 @@ import {
   satelliteHeads,
   type Pose,
 } from "@/lib/lab/camera";
-import { CLUSTER_NAMES, LINK_COLORS, ZONE_COLORS, ZONE_LABELS, nodeColorHex } from "@/lib/lab/palette";
+import {
+  CLUSTER_NAMES,
+  LINK_COLORS,
+  ZONE_COLORS,
+  ZONE_LABELS,
+  nodeColorHex,
+} from "@/lib/lab/palette";
 import { generateLabTopology } from "@/lib/lab/topology";
 import type { LabLink, LabNode, LinkKind, ViewMode } from "@/lib/lab/types";
 
@@ -30,15 +42,47 @@ type FGMethods = ForceGraphMethods;
 type FGProps = ForceGraphProps & { ref?: MutableRefObject<FGMethods | undefined> };
 
 const ForceGraph3D = dynamic(
-  () => import("react-force-graph-3d") as unknown as Promise<{ default: ComponentType<FGProps> }>,
+  () =>
+    import("react-force-graph-3d") as unknown as Promise<{
+      default: ComponentType<FGProps>;
+    }>,
   { ssr: false, loading: () => null },
 );
 
 const PARTICLE_SPEED: Record<LinkKind, number> = {
-  core: 0.003,
-  memory: 0.0035,
-  relay: 0.005,
-  highway: 0.008,
+  core: 0.0045,
+  memory: 0.0055,
+  relay: 0.0075,
+  highway: 0.011,
+};
+
+/** Subtle radial chromatic aberration + lens polish shader pass */
+const LENS_FX_SHADER = {
+  uniforms: {
+    tDiffuse: { value: null },
+    uAberration: { value: 0.0018 },
+  },
+  vertexShader: /* glsl */ `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    uniform sampler2D tDiffuse;
+    uniform float uAberration;
+    varying vec2 vUv;
+    void main() {
+      vec2 offset = vUv - vec2(0.5);
+      float dist = length(offset);
+      vec2 shift = offset * dist * uAberration;
+      float r = texture2D(tDiffuse, vUv + shift).r;
+      vec2 ga = texture2D(tDiffuse, vUv).ga;
+      float b = texture2D(tDiffuse, vUv - shift).b;
+      gl_FragColor = vec4(r, ga.x, b, ga.y);
+    }
+  `,
 };
 
 const endId = (end: unknown): string =>
@@ -48,8 +92,9 @@ const EMPTY: ReadonlySet<string> = new Set();
 
 function tooltip(node: LabNode): string {
   const color = nodeColorHex(node.zone, node.clusterId);
-  const region = node.zone === "memory" ? CLUSTER_NAMES[node.clusterId - 1] : ZONE_LABELS[node.zone];
-  return `<div class="lab-tip"><span class="lab-tip-dot" style="background:${color};box-shadow:0 0 8px ${color}"></span><b>${node.label}</b><i>${region} · deg ${node.degree}</i></div>`;
+  const region =
+    node.zone === "memory" ? CLUSTER_NAMES[node.clusterId - 1] : ZONE_LABELS[node.zone];
+  return `<div class="lab-tip"><span class="lab-tip-dot" style="background:${color};box-shadow:0 0 8px ${color}"></span><b>${node.label}</b><i>${region} · ${node.degree} pipes</i></div>`;
 }
 
 export default function NeuralLabGraph() {
@@ -64,10 +109,18 @@ export default function NeuralLabGraph() {
     }
     return map;
   }, [graph]);
+
   const counts = useMemo(
     () =>
       (["core", "memory", "relay", "gateway"] as const).map((zone) => ({
-        label: zone === "memory" ? "Memory" : zone === "core" ? "Core" : zone === "relay" ? "Relays" : "Gateways",
+        label:
+          zone === "memory"
+            ? "KV / MoE Shards"
+            : zone === "core"
+              ? "Tensor Core"
+              : zone === "relay"
+                ? "NVLink Ring"
+                : "Token Routers",
         value: graph.nodes.filter((n) => n.zone === zone).length,
         color: ZONE_COLORS[zone],
       })),
@@ -92,7 +145,6 @@ export default function NeuralLabGraph() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fps, setFps] = useState(0);
 
-  // Mutable mirrors read by the animation loop and stable callbacks.
   const sizeRef = useRef(size);
   const autoOrbitRef = useRef(autoOrbit);
   const selectedRef = useRef<string | null>(null);
@@ -100,6 +152,7 @@ export default function NeuralLabGraph() {
   const introRef = useRef<{ start: number; final: Pose } | null>(null);
   const lastInteractionRef = useRef(0);
   const tweenUntilRef = useRef(0);
+  const pointerRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const fgRef = useRef<FGMethods | null>(null);
   sizeRef.current = size;
   autoOrbitRef.current = autoOrbit;
@@ -122,7 +175,7 @@ export default function NeuralLabGraph() {
     return () => ro.disconnect();
   }, []);
 
-  // ── Capability detection + scene assets (client only: needs `document`) ──
+  // ── Capability detection + scene assets ──
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     reducedMotionRef.current = media.matches;
@@ -161,7 +214,7 @@ export default function NeuralLabGraph() {
   }, [graph, attempt]);
 
   // ── Camera helpers ──
-  const flyTo = useCallback((pose: Pose, ms = 1700) => {
+  const flyTo = useCallback((pose: Pose, ms = 1450) => {
     const api = fgRef.current;
     if (!api) return;
     const duration = reducedMotionRef.current ? 0 : ms;
@@ -194,9 +247,9 @@ export default function NeuralLabGraph() {
       if (!node) return;
       const target = new THREE.Vector3(node.x, node.y, node.z);
       const dir = target.clone().normalize();
-      const position = target.clone().addScaledVector(dir, node.zone === "memory" ? 70 : 60);
+      const position = target.clone().addScaledVector(dir, node.zone === "memory" ? 68 : 58);
       position.y += 14;
-      flyTo({ position, target }, 1400);
+      flyTo({ position, target }, 1250);
     },
     [flyTo, nodeById],
   );
@@ -208,6 +261,18 @@ export default function NeuralLabGraph() {
     },
     [flyToNode],
   );
+
+  const triggerGlobalPulse = useCallback(() => {
+    if (!lab) return;
+    if (selectedId) {
+      const n = nodeById.get(selectedId);
+      if (n) {
+        lab.triggerWave(new THREE.Vector3(n.x, n.y, n.z), nodeColorHex(n.zone, n.clusterId));
+        return;
+      }
+    }
+    lab.triggerWave(new THREE.Vector3(0, 0, 0), "#38bdf8");
+  }, [lab, selectedId, nodeById]);
 
   // ── Renderer wiring, post-processing and the frame loop ──
   useEffect(() => {
@@ -222,34 +287,38 @@ export default function NeuralLabGraph() {
       lab.install(fg.scene());
 
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.05;
+      renderer.toneMappingExposure = 1.12;
 
       const composer = fg.postProcessingComposer();
       for (const target of [composer.renderTarget1, composer.renderTarget2]) {
-        target.samples = 4; // MSAA on the post-processing targets
+        target.samples = 4;
         target.dispose();
       }
       const bloom = new UnrealBloomPass(
         new THREE.Vector2(sizeRef.current.width, sizeRef.current.height),
+        0.72,
         0.55,
-        0.5,
-        0.45,
+        0.38,
       );
+      const lensPass = new ShaderPass(LENS_FX_SHADER);
       const output = new OutputPass();
       composer.addPass(bloom);
+      composer.addPass(lensPass);
       composer.addPass(output);
       cleanups.push(() => {
         composer.removePass(bloom);
+        composer.removePass(lensPass);
         composer.removePass(output);
         bloom.dispose();
+        lensPass.dispose();
         output.dispose();
         renderer.toneMapping = THREE.NoToneMapping;
       });
 
-      controls.rotateSpeed = 2.6;
-      controls.zoomSpeed = 1.1;
-      controls.panSpeed = 0.7;
-      controls.dynamicDampingFactor = 0.12;
+      controls.rotateSpeed = 2.4;
+      controls.zoomSpeed = 1.15;
+      controls.panSpeed = 0.75;
+      controls.dynamicDampingFactor = 0.1;
       controls.minDistance = 24;
       controls.maxDistance = 2800;
 
@@ -266,7 +335,13 @@ export default function NeuralLabGraph() {
         canvas.removeEventListener("webglcontextrestored", onRestored);
       });
 
-      // Any user input takes control from the scripted reveal and pauses idle orbit.
+      const onPointerMove = (e: PointerEvent) => {
+        pointerRef.current.targetX = (e.clientX / Math.max(1, window.innerWidth)) * 2 - 1;
+        pointerRef.current.targetY = -((e.clientY / Math.max(1, window.innerHeight)) * 2 - 1);
+      };
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      cleanups.push(() => window.removeEventListener("pointermove", onPointerMove));
+
       const touch = () => {
         lastInteractionRef.current = performance.now();
         if (introRef.current) {
@@ -278,7 +353,6 @@ export default function NeuralLabGraph() {
       events.forEach((e) => window.addEventListener(e, touch, { passive: true }));
       cleanups.push(() => events.forEach((e) => window.removeEventListener(e, touch)));
 
-      // Opening shot: the 720° reveal (or a direct cut when motion is reduced).
       const aspect = sizeRef.current.width / Math.max(1, sizeRef.current.height);
       const final = presetPose("lattice", aspect, graph);
       if (reducedMotionRef.current) {
@@ -293,14 +367,22 @@ export default function NeuralLabGraph() {
 
       const up = new THREE.Vector3(0, 1, 0);
       let last = performance.now();
+      let elapsed = 0;
       let frames = 0;
       let windowStart = last;
       let warm = 0;
+
       const loop = (now: number) => {
         if (cancelled) return;
         raf = requestAnimationFrame(loop);
         const dt = Math.min(0.1, (now - last) / 1000);
         last = now;
+        elapsed += dt;
+
+        // Smoothly damp mouse pointer coordinates
+        const ptr = pointerRef.current;
+        ptr.x += (ptr.targetX - ptr.x) * (1 - Math.exp(-dt * 6));
+        ptr.y += (ptr.targetY - ptr.y) * (1 - Math.exp(-dt * 6));
 
         const intro = introRef.current;
         if (intro) {
@@ -312,17 +394,22 @@ export default function NeuralLabGraph() {
             setIntroActive(false);
           }
         } else if (now < tweenUntilRef.current) {
-          camera.up.lerp(up, 1 - Math.exp(-dt * 4)).normalize();
+          camera.up.lerp(up, 1 - Math.exp(-dt * 5)).normalize();
         } else if (
           autoOrbitRef.current &&
           !reducedMotionRef.current &&
           !selectedRef.current &&
           now - lastInteractionRef.current > ORBIT_IDLE_MS
         ) {
-          applyOrbit(dt, camera, controls.target);
+          applyOrbit(dt, elapsed, camera, controls.target, ptr);
         }
 
         lab.update(dt, camera, renderer);
+
+        // Modulate lens chromatic aberration during active inference shockwaves
+        const burst = lab.getBurstIntensity();
+        lensPass.uniforms.uAberration.value = 0.0014 + burst * 0.0042;
+        bloom.strength = 0.72 + burst * 0.32;
 
         frames++;
         if (now - windowStart >= 1000) {
@@ -347,7 +434,10 @@ export default function NeuralLabGraph() {
   // ── Focus / selection → scene + link styling ──
   const focusId = hoveredId ?? selectedId;
   useEffect(() => {
-    lab?.setFocus({ primary: focusId, neighbors: focusId ? (adjacency.get(focusId) ?? EMPTY) : EMPTY });
+    lab?.setFocus({
+      primary: focusId,
+      neighbors: focusId ? (adjacency.get(focusId) ?? EMPTY) : EMPTY,
+    });
   }, [lab, focusId, adjacency]);
   useEffect(() => {
     lab?.setSelected(selectedId);
@@ -356,7 +446,9 @@ export default function NeuralLabGraph() {
   const isLit = useCallback(
     (l: object) => {
       const link = l as LabLink;
-      return focusId !== null && (endId(link.source) === focusId || endId(link.target) === focusId);
+      return (
+        focusId !== null && (endId(link.source) === focusId || endId(link.target) === focusId)
+      );
     },
     [focusId],
   );
@@ -370,13 +462,16 @@ export default function NeuralLabGraph() {
   const linkParticles = useCallback(
     (l: object) => {
       const base = (l as LabLink).particles;
-      return focusId === null ? base : isLit(l) ? Math.max(base, 2) + 1 : 0;
+      return focusId === null ? base : isLit(l) ? Math.max(base, 3) + 2 : 0;
     },
     [focusId, isLit],
   );
   const linkWidth = useCallback((l: object) => (l as LabLink).width, []);
   const linkSpeed = useCallback((l: object) => PARTICLE_SPEED[(l as LabLink).kind], []);
-  const linkParticleColor = useCallback((l: object) => LINK_COLORS[(l as LabLink).kind].lit, []);
+  const linkParticleColor = useCallback(
+    (l: object) => LINK_COLORS[(l as LabLink).kind].lit,
+    [],
+  );
   const nodeLabel = useCallback((n: object) => tooltip(n as LabNode), []);
 
   // ── Keyboard ──
@@ -386,18 +481,34 @@ export default function NeuralLabGraph() {
       if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) return;
       const heads = satelliteHeads(graph).length;
       switch (e.key.toLowerCase()) {
-        case "1": applyView("lattice"); break;
-        case "2": applyView("core"); break;
-        case "3": applyView("memory"); break;
-        case "4": applyView("immersion"); break;
+        case "1":
+          applyView("lattice");
+          break;
+        case "2":
+          applyView("core");
+          break;
+        case "3":
+          applyView("memory");
+          break;
+        case "4":
+          applyView("immersion");
+          break;
+        case "f":
+          triggerGlobalPulse();
+          break;
         case "arrowright":
           if (view === "memory") applyView("memory", (satellite + 1) % heads);
           break;
         case "arrowleft":
           if (view === "memory") applyView("memory", (satellite + heads - 1) % heads);
           break;
-        case "r": setSelectedId(null); applyView("lattice", undefined, 2000); break;
-        case "escape": setSelectedId(null); break;
+        case "r":
+          setSelectedId(null);
+          applyView("lattice", undefined, 1600);
+          break;
+        case "escape":
+          setSelectedId(null);
+          break;
         case " ":
           if (t instanceof HTMLButtonElement) return;
           e.preventDefault();
@@ -407,7 +518,7 @@ export default function NeuralLabGraph() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [applyView, graph, satellite, view]);
+  }, [applyView, graph, satellite, triggerGlobalPulse, view]);
 
   const setGraphRef = useCallback((instance: FGMethods | null | undefined) => {
     setFg(instance ?? null);
@@ -436,7 +547,11 @@ export default function NeuralLabGraph() {
             height={size.height}
             backgroundColor="#030508"
             showNavInfo={false}
-            rendererConfig={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
+            rendererConfig={{
+              antialias: true,
+              alpha: false,
+              powerPreference: "high-performance",
+            }}
             nodeId="id"
             nodeThreeObject={lab.nodeObject}
             nodeThreeObjectExtend={false}
@@ -449,7 +564,7 @@ export default function NeuralLabGraph() {
             linkDirectionalParticles={linkParticles}
             linkDirectionalParticleSpeed={linkSpeed}
             linkDirectionalParticleColor={linkParticleColor}
-            linkDirectionalParticleWidth={1.8}
+            linkDirectionalParticleWidth={2.2}
             linkDirectionalParticleResolution={6}
             enableNodeDrag={false}
             warmupTicks={0}
@@ -462,19 +577,27 @@ export default function NeuralLabGraph() {
       </div>
 
       <div aria-hidden="true" className="vignette pointer-events-none absolute inset-0 z-10" />
-      <div aria-hidden="true" className="lab-scanlines pointer-events-none absolute inset-0 z-10 opacity-60" />
+      <div
+        aria-hidden="true"
+        className="lab-scanlines pointer-events-none absolute inset-0 z-10 opacity-60"
+      />
 
       <div
         className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-6"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
         <div className="pointer-events-auto">
-          <Header fps={fps} nodes={graph.nodes.length} links={graph.links.length} />
+          <Header
+            fps={fps}
+            nodes={graph.nodes.length}
+            links={graph.links.length}
+            onTriggerPulse={triggerGlobalPulse}
+          />
         </div>
 
         {introActive && (
-          <p className="hud-label hud-enter absolute left-1/2 top-[18%] -translate-x-1/2 text-cyan-100/70">
-            Drag, scroll or press any key to take control
+          <p className="hud-label hud-enter absolute left-1/2 top-[16%] -translate-x-1/2 text-cyan-100/75">
+            Synchronising Distributed Tensor Fabric · Drag or press any key
           </p>
         )}
 
@@ -489,7 +612,7 @@ export default function NeuralLabGraph() {
               onToggleOrbit={() => setAutoOrbit((v) => !v)}
               onReset={() => {
                 setSelectedId(null);
-                applyView("lattice", undefined, 2000);
+                applyView("lattice", undefined, 1600);
               }}
             />
             <ShortcutHint />
@@ -504,6 +627,12 @@ export default function NeuralLabGraph() {
         onClose={() => setSelectedId(null)}
         onSelect={select}
         onFocus={flyToNode}
+        onPulseNode={(n) =>
+          lab?.triggerWave(
+            new THREE.Vector3(n.x, n.y, n.z),
+            nodeColorHex(n.zone, n.clusterId),
+          )
+        }
       />
 
       {contextLost && <ContextLostBanner />}
