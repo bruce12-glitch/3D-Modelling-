@@ -37,9 +37,8 @@ const cross = (a: Vec, b: Vec): Vec => [
 const pos = (n: LabNode): Vec => [n.x, n.y, n.z];
 
 /**
- * Orientation of a memory satellite's spiral disc. Blends the outward radial
- * with the hero-camera direction so discs read face-on from the default view
- * instead of collapsing into edge-on slivers.
+ * Orientation of an expert/KV-cache shard disc. Blends the outward radial
+ * with the hero-camera direction so discs read face-on from the default view.
  */
 export function discNormalOf(p: { x: number; y: number; z: number }): Vec {
   const radial = norm([p.x, p.y, p.z]);
@@ -93,9 +92,9 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
     });
   };
 
-  // ── Reasoning core: concentric Fibonacci shells -> a dense, brain-like lattice ──
+  // ── Tensor Core: concentric Fibonacci shells -> dense transformer attention lattice ──
   const core: LabNode[] = [];
-  CORE_SHELLS.forEach(([shellRadius, count]) => {
+  CORE_SHELLS.forEach(([shellRadius, count], layerIdx) => {
     const phase = rng() * Math.PI * 2;
     for (let i = 0; i < count; i++) {
       const [ux, uy, uz] = fibonacciSphere(i, count, phase);
@@ -104,27 +103,27 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
         id: `core-${core.length}`,
         zone: "core",
         clusterId: 0,
-        radius: 1.1 + rng() * 0.6,
-        label: `Core ${core.length}`,
+        radius: 1.15 + rng() * 0.65,
+        label: `Attn-L${layerIdx}-H${i}`,
         hub: false,
         x: ux * r,
-        y: uy * r * 0.82,
+        y: uy * r * 0.86,
         z: uz * r,
         degree: 0,
       };
       core.push(node);
     }
   });
-  // Promote a spread of mid/outer-shell nodes to hubs.
+  // Promote a spread of mid/outer-shell nodes to tensor routing hubs.
   const hubCandidates = core.slice(CORE_SHELLS[0][1] + CORE_SHELLS[1][1]);
-  for (let h = 0; h < 14; h++) {
+  for (let h = 0; h < 16; h++) {
     const node = hubCandidates[Math.floor(rng() * hubCandidates.length)];
     node.hub = true;
-    node.radius = 2.5 + rng() * 0.6;
+    node.radius = 2.6 + rng() * 0.65;
   }
   nodes.push(...core);
 
-  // ── Memory satellites: two-armed spiral discs on a Fibonacci sphere ──
+  // ── MoE & KV-Cache Shards: two-armed spiral discs on a Fibonacci sphere ──
   const heads: LabNode[] = [];
   const clusters: LabNode[][] = [];
   for (let s = 0; s < SATELLITES; s++) {
@@ -142,8 +141,8 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
       id: `mem-${s}-head`,
       zone: "memory",
       clusterId,
-      radius: 3.4,
-      label: `${CLUSTER_NAMES[s]} head`,
+      radius: 3.6,
+      label: `${CLUSTER_NAMES[s]} Router`,
       hub: true,
       x: anchor[0],
       y: anchor[1],
@@ -163,8 +162,8 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
         id: `mem-${s}-${i}`,
         zone: "memory",
         clusterId,
-        radius: 0.8 + (1 - t) * 0.5 + rng() * 0.3,
-        label: `${CLUSTER_NAMES[s]} ${i}`,
+        radius: 0.85 + (1 - t) * 0.55 + rng() * 0.3,
+        label: `${CLUSTER_NAMES[s]}::Block-${i}`,
         hub: false,
         x: anchor[0] + u[0] * r * Math.cos(theta) + v[0] * r * Math.sin(theta) + normal[0] * lift,
         y: anchor[1] + u[1] * r * Math.cos(theta) + v[1] * r * Math.sin(theta) + normal[1] * lift,
@@ -176,7 +175,7 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
     nodes.push(...members);
   }
 
-  // ── Relay belt: a tilted, gently undulating ring between core and satellites ──
+  // ── NVLink All-Reduce Ring: tilted high-speed ring between core and shards ──
   const relays: LabNode[] = [];
   const tilt = 0.18;
   for (let i = 0; i < RELAYS; i++) {
@@ -189,8 +188,8 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
       id: `relay-${i}`,
       zone: "relay",
       clusterId: 8,
-      radius: 1.5 + rng() * 0.4,
-      label: `Relay ${i}`,
+      radius: 1.55 + rng() * 0.4,
+      label: `NVLink-Node-${i}`,
       hub: false,
       x: x0,
       y: y0 * Math.cos(tilt) - z0 * Math.sin(tilt),
@@ -200,16 +199,17 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
   }
   nodes.push(...relays);
 
-  // ── Gateways: three beacons just outside the belt ──
+  // ── Speculative Token Gateways: three high-throughput dispatchers ──
   const gateways: LabNode[] = [];
+  const gatewayLabels = ["Spec-Draft-Dispatcher", "KV-Prefill-Engine", "Tensor-Sync-Arbiter"];
   for (let i = 0; i < GATEWAYS; i++) {
     const theta = (i / GATEWAYS) * Math.PI * 2 + Math.PI / 2;
     gateways.push({
       id: `gateway-${i}`,
       zone: "gateway",
       clusterId: 9,
-      radius: 4.2,
-      label: `Gateway ${i}`,
+      radius: 4.4,
+      label: gatewayLabels[i] ?? `Gateway ${i}`,
       hub: true,
       x: Math.cos(theta) * GATEWAY_RADIUS,
       y: Math.sin(theta * 2) * 14,
@@ -220,46 +220,48 @@ export function generateLabTopology(seed: number = TOPOLOGY_SEED): GraphData {
   nodes.push(...gateways);
 
   // ── Links ──
-  // Core: local k-nearest lattice + long-range small-world shortcuts from hubs.
   for (const n of core) {
-    for (const m of nearest(core, n, 3)) connect(n, m, "core", 0, 0.1 + rng() * 0.12);
+    for (const m of nearest(core, n, 3)) {
+      connect(n, m, "core", 0, 0.1 + rng() * 0.12, rng() < 0.08 ? 1 : 0);
+    }
   }
   for (const hub of core.filter((n) => n.hub)) {
     const far = core.filter((n) => len(sub(pos(n), pos(hub))) > 60);
     for (let k = 0; k < 3; k++) {
-      connect(hub, far[Math.floor(rng() * far.length)], "core", 0, 0.28 + rng() * 0.1);
+      connect(hub, far[Math.floor(rng() * far.length)], "core", 0.35, 0.28 + rng() * 0.1, 2);
     }
   }
 
-  // Memory: radial spokes from each head plus a local k-nearest mesh.
   clusters.forEach((members) => {
     const head = members[0];
-    for (const m of nearest(members, head, 9)) connect(head, m, "memory", 0, 0.12, 1);
+    // Keep both spiral arms connected to the router even when nearest-neighbour
+    // links form isolated local groups. Members alternate between the two arms.
+    for (let i = 1; i < members.length; i++) {
+      connect(members[i], members[Math.max(0, i - 2)], "memory", 0, 0.2);
+    }
+    for (const m of nearest(members, head, 9)) connect(head, m, "memory", 0.3, 0.12, 2);
     for (const n of members) {
       for (const m of nearest(members, n, 2)) connect(n, m, "memory", 0, 0.2 + rng() * 0.15);
     }
   });
 
-  // Relay belt: closed ring with periodic cross-links.
   relays.forEach((r, i) => {
-    connect(r, relays[(i + 1) % RELAYS], "relay", 0, 0.06, 2);
-    if (i % 7 === 0) connect(r, relays[(i + 14) % RELAYS], "relay", 0, 0.3);
+    connect(r, relays[(i + 1) % RELAYS], "relay", 0.4, 0.06, 3);
+    if (i % 7 === 0) connect(r, relays[(i + 14) % RELAYS], "relay", 0.3, 0.3, 2);
   });
 
-  // Highways: core hubs -> belt, belt -> satellites, gateways -> everything they bridge.
   const coreHubs = core.filter((n) => n.hub);
-  for (const hub of coreHubs.slice(0, 9)) {
-    connect(hub, nearest(relays, hub, 1)[0], "highway", 0.6, 0.08, 3);
+  for (const hub of coreHubs.slice(0, 11)) {
+    connect(hub, nearest(relays, hub, 1)[0], "highway", 0.85, 0.08, 4);
   }
   for (const head of heads) {
-    for (const r of nearest(relays, head, 2)) connect(head, r, "highway", 0.6, 0.06, 3);
+    for (const r of nearest(relays, head, 2)) connect(head, r, "highway", 0.85, 0.06, 4);
   }
   for (const g of gateways) {
-    for (const r of nearest(relays, g, 2)) connect(g, r, "highway", 1, 0.04, 4);
-    for (const h of nearest(heads, g, 2)) connect(g, h, "highway", 1, 0.05, 4);
+    for (const r of nearest(relays, g, 2)) connect(g, r, "highway", 1.15, 0.04, 5);
+    for (const h of nearest(heads, g, 2)) connect(g, h, "highway", 1.15, 0.05, 5);
   }
 
-  // Degrees (drives inspector + hub emphasis).
   const byId = new Map(nodes.map((n) => [n.id, n]));
   for (const l of links) {
     byId.get(l.source)!.degree++;
